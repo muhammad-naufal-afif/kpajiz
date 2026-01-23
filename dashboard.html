@@ -1,139 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - SD NEGERI 2 BAWANG</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="admin-page">
-    <!-- Sidebar -->
+
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-header">
-            <img src="../images/logo.png" alt="Logo" onerror="this.style.display='none'">
+            <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'">
             <h3>SD NEGERI 2 BAWANG</h3>
         </div>
         <nav class="sidebar-nav">
-            <a href="dashboard.html" class="nav-item active">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
+            <a href="#" class="nav-item active" onclick="switchModule('dashboard', this)">
+                <i class="fas fa-home"></i> <span>Dashboard</span>
             </a>
-            <a href="#
-
-            " class="nav-item">
-                <i class="fas fa-newspaper"></i>
-                <span>Berita</span>
+            <a href="#" class="nav-item" onclick="switchModule('berita', this)">
+                <i class="fas fa-newspaper"></i> <span>Berita</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-images"></i>
-                <span>Galeri</span>
+            <a href="#" class="nav-item" onclick="switchModule('galeri', this)">
+                <i class="fas fa-images"></i> <span>Galeri</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-users"></i>
-                <span>Guru & Staff</span>
+            <a href="#" class="nav-item" onclick="switchModule('guru', this)">
+                <i class="fas fa-users"></i> <span>Guru & Staff</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-building"></i>
-                <span>Fasilitas</span>
+            <a href="#" class="nav-item" onclick="switchModule('prestasi', this)">
+                <i class="fas fa-trophy"></i> <span>Prestasi</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-trophy"></i>
-                <span>Prestasi</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-user-shield"></i>
-                <span>Profile Sekolah</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-cog"></i>
-                <span>Pengaturan</span>
+            <a href="#" class="nav-item" onclick="switchModule('pengaturan', this)">
+                <i class="fas fa-cog"></i> <span>Pengaturan</span>
             </a>
         </nav>
         <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
+            <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="admin-main">
-        <!-- Topbar -->
         <header class="admin-topbar">
-            <button class="sidebar-toggle" onclick="toggleSidebar()">
-                <i class="fas fa-bars"></i>
-            </button>
-            <h1>Dashboard</h1>
-            <div class="topbar-right">
-                <div class="admin-profile">
-                    <img src="../images/admin-avatar.jpg" alt="Admin" onerror="this.src='https://via.placeholder.com/40x40/34495E/ffffff?text=A'">
-                    <div class="profile-info">
-                        <span class="profile-name">Administrator</span>
-                        <span class="profile-role">Super Admin</span>
-                    </div>
+            <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1 id="pageTitle">Dashboard</h1>
+            <div class="admin-profile">
+                <img src="images/admin-avatar.jpg" onerror="this.src='https://via.placeholder.com/40x40'">
+                <div class="profile-info">
+                    <span class="profile-name">Administrator</span>
+                    <span class="profile-role">Super Admin</span>
                 </div>
             </div>
         </header>
 
-        <!-- Dashboard Content -->
         <div class="admin-content">
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon blue">
-                        <i class="fas fa-newspaper"></i>
+
+            <div id="modul-dashboard" class="module-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fas fa-newspaper"></i></div>
+                        <div class="stat-info">
+                            <h3>63</h3>
+                            <p>Total Berita</p>
+                        </div>
                     </div>
-                    <div class="stat-info">
-                        <h3>63</h3>
-                        <p>Total Berita</p>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>25</h3>
+                            <p>Guru & Staff</p>
+                        </div>
                     </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon green">
-                        <i class="fas fa-images"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>142</h3>
-                        <p>Galeri Foto</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon orange">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>25</h3>
-                        <p>Guru & Staff</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon purple">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>3,245</h3>
-                        <p>Total Pengunjung</p>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fas fa-trophy"></i></div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Prestasi</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Activity -->
-            <div class="dashboard-grid">
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Berita Terbaru</h3>
-                        <a href="#" class="card-action">Lihat Semua</a>
+            <div id="modul-guru" class="module-section" style="display: none;">
+                <div class="page-actions" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+                    <button class="action-btn blue" onclick="openModal('modalGuru')"><i class="fas fa-plus"></i> Tambah
+                        Guru</button>
+                    <button class="action-btn green"><i class="fas fa-save"></i> Simpan Posisi</button>
+                </div>
+
+                <div class="jabatan-manager">
+                    <div class="org-section">
+                        <h3 class="text-center mb-3">Kepala Sekolah</h3>
+                        <div class="role-slot special-slot" data-role="kepala_sekolah">
+                            <div class="guru-card draggable" draggable="true" id="guru-1">
+                                <img src="images/guru-1.jpg" onerror="this.src='https://via.placeholder.com/40'">
+                                <div class="guru-info"><strong>Dra. Siti Nurjanah</strong><small>NIP. 1965...</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-content">
+
+                    <div class="org-section">
+                        <h3 class="mb-3">Wali Kelas</h3>
+                        <div class="classroom-grid">
+                            <div class="role-slot" data-role="1a"><span class="slot-label">Kelas 1A</span></div>
+                            <div class="role-slot" data-role="1b"><span class="slot-label">Kelas 1B</span></div>
+                            <div class="role-slot" data-role="2a">
+                                <span class="slot-label">Kelas 2A</span>
+                                <div class="guru-card draggable" draggable="true" id="guru-2">
+                                    <img src="images/guru-2.jpg" onerror="this.src='https://via.placeholder.com/40'">
+                                    <div class="guru-info"><strong>Budi Santoso</strong></div>
+                                </div>
+                            </div>
+                            <div class="role-slot" data-role="2b"><span class="slot-label">Kelas 2B</span></div>
+                        </div>
+                    </div>
+
+                    <div class="org-section">
+                        <h3 class="mb-3">Daftar Guru & Staff</h3>
+                        <div class="staff-pool" id="staffPool">
+                            <div class="guru-card draggable" draggable="true" id="guru-3">
+                                <img src="images/guru-3.jpg" onerror="this.src='https://via.placeholder.com/40'">
+                                <div class="guru-info"><strong>Eko Prasetyo</strong><small>Guru PJOK</small></div>
+                            </div>
+                            <div class="guru-card draggable" draggable="true" id="guru-4">
+                                <img src="images/guru-4.jpg" onerror="this.src='https://via.placeholder.com/40'">
+                                <div class="guru-info"><strong>Ratna Sari</strong><small>Guru SBdP</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modul-galeri" class="module-section" style="display: none;">
+                <div class="gallery-manager">
+                    <div class="upload-area-large" id="galleryDropzone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Seret Foto Kegiatan ke Sini</h3>
+                        <p>atau klik untuk memilih foto (Bisa banyak sekaligus)</p>
+                        <input type="file" multiple hidden id="galleryInput">
+                    </div>
+
+                    <h3 style="margin: 30px 0 15px;">Galeri Foto Tersimpan</h3>
+                    <div class="gallery-admin-grid">
+                        <div class="gallery-admin-item">
+                            <img src="images/gallery-1.jpg">
+                            <div class="gallery-actions">
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="gallery-admin-item">
+                            <img src="images/gallery-2.jpg">
+                            <div class="gallery-actions">
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modul-prestasi" class="module-section" style="display: none;">
+                <div class="page-actions">
+                    <button class="action-btn purple" onclick="openModal('modalPrestasi')"><i class="fas fa-plus"></i>
+                        Tambah Prestasi</button>
+                </div>
+                <div class="table-responsive" style="margin-top: 20px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Lomba</th>
+                                <th>Peringkat</th>
+                                <th>Tingkat</th>
+                                <th>Tanggal</th>
+                                <th>Bukti Foto</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lomba Cerdas Cermat</td>
+                                <td><span class="badge blue">Juara 1</span></td>
+                                <td>Kabupaten</td>
+                                <td>10 Jan 2025</td>
+                                <td><img src="images/news-1.jpg"
+                                        style="width: 50px; height: 30px; object-fit: cover; border-radius: 4px;"></td>
+                                <td>
+                                    <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div id="modul-berita" class="module-section" style="display: none;">
+                    <div class="page-actions"
+                        style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <button class="action-btn blue" onclick="openModal('modalBerita')">
+                            <i class="fas fa-plus"></i> Tulis Berita Baru
+                        </button>
+                        <div class="search-wrapper">
+                            <input type="text" placeholder="Cari judul berita..."
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                        </div>
+                    </div>
+                
+                    <div class="table-responsive">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Judul</th>
+                                    <th width="80">Cover</th>
+                                    <th>Judul Berita</th>
                                     <th>Kategori</th>
+                                    <th>Penulis</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -141,8 +222,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Peringatan Hari Pendidikan Nasional</td>
+                                    <td>
+                                        <img src="images/news-1.jpg" onerror="this.src='https://via.placeholder.com/80x50'"
+                                            style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;">
+                                    </td>
+                                    <td>
+                                        <strong>Peringatan Hari Pendidikan Nasional</strong>
+                                        <div style="font-size: 11px; color: #888;">Dibaca: 245 kali</div>
+                                    </td>
                                     <td><span class="badge blue">Kegiatan</span></td>
+                                    <td>Admin</td>
                                     <td>15 Jan 2025</td>
                                     <td><span class="badge green">Published</span></td>
                                     <td>
@@ -151,59 +240,136 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Juara 1 Lomba Cerdas Cermat</td>
+                                    <td>
+                                        <img src="images/news-2.jpg" onerror="this.src='https://via.placeholder.com/80x50'"
+                                            style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;">
+                                    </td>
+                                    <td>
+                                        <strong>Juara 1 Lomba Cerdas Cermat</strong>
+                                        <div style="font-size: 11px; color: #888;">Dibaca: 328 kali</div>
+                                    </td>
                                     <td><span class="badge purple">Prestasi</span></td>
+                                    <td>Admin</td>
                                     <td>10 Jan 2025</td>
                                     <td><span class="badge green">Published</span></td>
                                     <td>
-                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon" title="Hapus"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Pendaftaran Siswa Baru</td>
-                                    <td><span class="badge orange">Pengumuman</span></td>
-                                    <td>5 Jan 2025</td>
-                                    <td><span class="badge green">Published</span></td>
-                                    <td>
-                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon" title="Hapus"><i class="fas fa-trash"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Quick Actions</h3>
-                    </div>
-                    <div class="card-content">
-                        <div class="quick-actions">
-                            <button class="action-btn blue">
-                                <i class="fas fa-plus"></i>
-                                <span>Tambah Berita</span>
-                            </button>
-                            <button class="action-btn green">
-                                <i class="fas fa-upload"></i>
-                                <span>Upload Galeri</span>
-                            </button>
-                            <button class="action-btn orange">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Tambah Guru</span>
-                            </button>
-                            <button class="action-btn purple">
-                                <i class="fas fa-trophy"></i>
-                                <span>Tambah Prestasi</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div id="modul-pengaturan" class="module-section" style="display: none;">
+                <h3>Pengaturan Sekolah (Coming Soon)</h3>
             </div>
+
         </div>
     </main>
 
+    <div id="modalGuru" class="gallery-modal">
+        <div class="modal-content-box">
+            <span class="close-modal" onclick="closeModal('modalGuru')">&times;</span>
+            <h3>Tambah Guru Baru</h3>
+            <form>
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Foto Profil</label>
+                    <div class="upload-dropzone mini" id="guruPhotoDrop">
+                        <div class="dz-content">
+                            <i class="fas fa-camera"></i>
+                            <p>Drop Foto</p>
+                        </div>
+                        <img id="guruPreview" class="preview-img hidden">
+                        <input type="file" hidden>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary w-100">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalPrestasi" class="gallery-modal">
+        <div class="modal-content-box">
+            <span class="close-modal" onclick="closeModal('modalPrestasi')">&times;</span>
+            <h3>Tambah Prestasi</h3>
+            <form>
+                <div class="form-group">
+                    <label>Nama Lomba</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Foto Dokumentasi / Sertifikat</label>
+                    <div class="upload-dropzone" id="prestasiPhotoDrop">
+                        <div class="dz-content">
+                            <i class="fas fa-image"></i>
+                            <p>Seret Foto Bukti ke Sini</p>
+                        </div>
+                        <img id="prestasiPreview" class="preview-img hidden">
+                        <input type="file" hidden>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary w-100">Simpan Prestasi</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalBerita" class="gallery-modal">
+        <div class="modal-content-box" style="width: 800px; max-width: 95%;">
+            <span class="close-modal" onclick="closeModal('modalBerita')">&times;</span>
+            <h3>Tulis Berita Baru</h3>
+            <form>
+                <div class="form-group">
+                    <label>Judul Berita</label>
+                    <input type="text" class="form-control" placeholder="Masukkan judul artikel...">
+                </div>
+    
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select class="form-control">
+                            <option value="kegiatan">Kegiatan Sekolah</option>
+                            <option value="prestasi">Prestasi</option>
+                            <option value="pengumuman">Pengumuman</option>
+                            <option value="artikel">Artikel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status Publikasi</label>
+                        <select class="form-control">
+                            <option value="published">Terbitkan Langsung</option>
+                            <option value="draft">Simpan sebagai Draft</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Gambar Cover / Thumbnail</label>
+                    <div class="upload-dropzone mini" id="beritaPhotoDrop">
+                        <div class="dz-content">
+                            <i class="fas fa-image"></i>
+                            <p>Seret Gambar Cover ke Sini</p>
+                        </div>
+                        <img id="beritaPreview" class="preview-img hidden">
+                        <input type="file" hidden>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label>Isi Konten</label>
+                    <textarea class="form-control" rows="10"
+                        placeholder="Tulis isi berita di sini... (Bisa HTML sederhana)"></textarea>
+                </div>
+    
+                <button type="button" class="btn btn-primary w-100">Simpan & Terbitkan</button>
+            </form>
+        </div>
+    </div>
     <script src="js/script.js"></script>
 </body>
+
 </html>

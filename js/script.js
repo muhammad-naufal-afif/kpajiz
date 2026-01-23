@@ -385,3 +385,129 @@ document.addEventListener('DOMContentLoaded', () => {
     // Loading Animation Fade Out
     document.body.style.opacity = '1';
 });
+
+// --- 1. LOGIKA NAVIGASI SIDEBAR (SPA Sederhana) ---
+function switchModule(moduleId, element) {
+    // 1. Sembunyikan semua modul
+    const modules = document.querySelectorAll('.module-section');
+    modules.forEach(mod => mod.style.display = 'none');
+
+    // 2. Tampilkan modul yang dipilih
+    const selected = document.getElementById('modul-' + moduleId);
+    if(selected) selected.style.display = 'block';
+
+    // 3. Update judul halaman
+    const titles = {
+        'dashboard': 'Dashboard',
+        'guru': 'Manajemen Guru & Staff',
+        'galeri': 'Manajemen Galeri',
+        'prestasi': 'Data Prestasi',
+        'berita': 'Manajemen Berita',
+        'pengaturan': 'Pengaturan'
+    };
+    document.getElementById('pageTitle').innerText = titles[moduleId] || 'Dashboard';
+
+    // 4. Update status aktif di sidebar
+    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+    if(element) element.classList.add('active');
+}
+
+// --- 2. LOGIKA DRAG & DROP GURU (JABATAN) ---
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Inisialisasi Drag Item Guru
+    const draggables = document.querySelectorAll('.draggable');
+    const slots = document.querySelectorAll('.role-slot, .staff-pool');
+
+    draggables.forEach(drag => {
+        drag.addEventListener('dragstart', () => drag.classList.add('dragging'));
+        drag.addEventListener('dragend', () => drag.classList.remove('dragging'));
+    });
+
+    slots.forEach(slot => {
+        slot.addEventListener('dragover', e => {
+            e.preventDefault();
+            slot.classList.add('drag-over');
+        });
+        
+        slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+        
+        slot.addEventListener('drop', e => {
+            e.preventDefault();
+            slot.classList.remove('drag-over');
+            const draggable = document.querySelector('.dragging');
+            
+            // Logika: Slot Jabatan cuma boleh 1 guru. Jika ada, kembalikan yang lama ke pool.
+            if(slot.classList.contains('role-slot') && slot.querySelectorAll('.guru-card').length > 0) {
+                const existing = slot.querySelector('.guru-card');
+                document.getElementById('staffPool').appendChild(existing);
+            }
+            slot.appendChild(draggable);
+        });
+    });
+
+    // --- 3. LOGIKA UPLOAD DRAG & DROP (Generic) ---
+    
+    setupUploadZone('galleryDropzone', 'galleryInput', true); // Galeri (Multiple)
+    setupUploadZone('guruPhotoDrop', null, false, 'guruPreview'); // Modal Guru (Single)
+    setupUploadZone('prestasiPhotoDrop', null, false, 'prestasiPreview'); // Modal Prestasi (Single)
+    setupUploadZone('beritaPhotoDrop', null, false, 'beritaPreview'); // Modal Berita (Single)
+
+
+});
+
+// Helper Function untuk Upload
+function setupUploadZone(zoneId, inputId, isMultiple, previewId = null) {
+    const zone = document.getElementById(zoneId);
+    if(!zone) return;
+    
+    const input = inputId ? document.getElementById(inputId) : zone.querySelector('input');
+
+    zone.addEventListener('click', () => input.click());
+
+    zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('drag-over');
+    });
+
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+
+    zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('drag-over');
+        
+        const files = e.dataTransfer.files;
+        handleFiles(files, isMultiple, previewId);
+    });
+
+    input.addEventListener('change', () => {
+        handleFiles(input.files, isMultiple, previewId);
+    });
+}
+
+function handleFiles(files, isMultiple, previewId) {
+    if (files.length > 0) {
+        if(isMultiple) {
+            alert(files.length + " Foto siap diupload! (Simulasi)");
+            // Disini logika AJAX upload galeri
+        } else if (previewId) {
+            // Preview Single Image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.getElementById(previewId);
+                img.src = e.target.result;
+                img.classList.remove('hidden');
+                img.previousElementSibling.classList.add('hidden'); // Sembunyikan icon
+            };
+            reader.readAsDataURL(files[0]);
+        }
+    }
+}
+
+// --- 4. MODAL SYSTEM ---
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
