@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - SD NEGERI 2 BAWANG</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="images/logoo.png" alt="Logo SD Negeri 2 Bawang" onerror="this.style.display='none'">
+                    <div class="logo-text">
+                        <h3>SD NEGERI 2 BAWANG</h3>
+                        <p>Mencerdaskan Generasi Bangsa</p>
+                    </div>
+                </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="navMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="guru-staff.html">Guru & Staff</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li><a href="berita.html">Berita</a></li>
+                    <li><a href="kontak.html" class="active">Kontak</a></li>
+                    <li><a href="login.html" class="btn-admin"><i class="fas fa-lock"></i> Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-overlay"></div>
+        <div class="container">
+            <h1>Hubungi Kami</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Beranda</a>
+                <span>/</span>
+                <span>Kontak</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="contact-info-section">
+        <div class="container">
+            <div class="contact-info-grid">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Alamat</h3>
+                    <p>Desa Bawang<br>Kecamatan Bawang<br>Kabupaten Banjarnegara 51371</p>
+                </div>
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Telepon</h3>
+                    <p>-</p>
+                </div>
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>sdnegeri2bawang@gmail.com</p>
+                </div>
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Jam Operasional</h3>
+                    <p>Senin - Sabtu<br>07:00 - 14:00 WIB</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Map -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h2>Kirim Pesan</h2>
+                    <p>Silakan isi formulir di bawah ini untuk menghubungi kami. Kami akan merespons pesan Anda sesegera mungkin.</p>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nama">Nama Lengkap *</label>
+                                <input type="text" id="nama" name="nama" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telepon">No. Telepon</label>
+                                <input type="tel" id="telepon" name="telepon">
+                            </div>
+                            <div class="form-group">
+                                <label for="subjek">Subjek *</label>
+                                <input type="text" id="subjek" name="subjek" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pesan">Pesan *</label>
+                            <textarea id="pesan" name="pesan" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kirim Pesan <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+
+                <!-- Map -->
+                <div class="map-wrapper">
+                    <h2>Lokasi Kami</h2>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.5874245842306!2d109.61137217511981!3d-7.400038672863028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7aabc5dabf7cdf%3A0xd74388b8663c195e!2sSD%20Negeri%202%20Bawang!5e0!3m2!1sen!2sus!4v1764811423072!5m2!1sen!2sus" 
+                        width="600"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="map-directions">
+                        <a href="https://www.google.com/maps/dir//SD+Negeri+2+Bawang" target="_blank" class="btn btn-outline">
+                            <i class="fas fa-directions"></i> Petunjuk Arah
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Info -->
+    <section class="additional-info">
+        <div class="container">
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <div class="info-text">
+                    <h4>Informasi Tambahan</h4>
+                    <p>Untuk informasi lebih lanjut mengenai pendaftaran siswa baru, kegiatan sekolah, atau pertanyaan lainnya, jangan ragu untuk menghubungi kami melalui kontak di atas atau kunjungi langsung kantor kami pada jam operasional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <div class="footer-logo">
+                            <img src="images/logoo.png" alt="Logo" onerror="this.style.display='none'">
+                            <h3>SD NEGERI 2 BAWANG</h3>
+                        </div>
+                        <p>Sekolah Dasar berkualitas yang berkomitmen membentuk generasi cerdas, berkarakter, dan berprestasi.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Menu Cepat</h4>
+                        <ul>
+                            <li><a href="index.html">Beranda</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="guru-staff.html">Guru & Staff</a></li>
+                            <li><a href="galeri.html">Galeri</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Informasi</h4>
+                        <ul>
+                            <li><a href="berita.html">Berita</a></li>
+                            <li><a href="kontak.html">Kontak</a></li>
+                            <li><a href="login.html">Login Admin</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Kontak Kami</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> Bawang, Kec.Bawang, Kab.Banjarnegara</li>
+                            <li><i class="fas fa-phone"></i>-</li>
+                            <li><i class="fas fa-envelope"></i> sdnegeri2bawang@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 SD Negeri 2 Bawang. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

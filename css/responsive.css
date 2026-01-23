@@ -1,0 +1,282 @@
+/* ========================================
+   SD NEGERI 2 BAWANG - RESPONSIVE STYLES
+   ======================================== */
+
+/* === TABLET & LAPTOP KECIL (Max-width: 991px) === */
+@media (max-width: 991px) {
+    /* Container lebih rapat */
+    .container {
+        padding: 0 30px;
+    }
+
+    /* Navbar */
+    .nav-menu {
+        gap: 15px;
+    }
+    .nav-menu a {
+        font-size: 14px;
+    }
+
+    /* Hero Text */
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    /* Footer Grid jadi 2 kolom */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+/* === MOBILE LANDSCAPE & TABLET KECIL (Max-width: 768px) === */
+@media (max-width: 768px) {
+    
+    /* === GLOBAL === */
+    .section-title {
+        font-size: 28px;
+    }
+    
+    /* === NAVBAR (Mobile Menu) === */
+    .nav-toggle {
+        display: flex; /* Munculkan tombol burger */
+        z-index: 1001;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Sembunyi di kanan */
+        width: 250px; /* Lebar menu */
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 20px 30px;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        gap: 20px;
+    }
+
+    .nav-menu.active {
+        right: 0; /* Munculkan menu */
+    }
+
+    .nav-menu li {
+        width: 100%;
+        border-bottom: 1px solid var(--light-gray);
+        padding-bottom: 10px;
+    }
+
+    .nav-menu a {
+        font-size: 16px;
+        display: block;
+    }
+
+    /* === HERO SECTION === */
+    .hero {
+        height: auto; /* Jangan dipaksa 500px fix */
+        min-height: 500px; /* Minimal 500px */
+        padding: 60px 0; /* Beri jarak atas bawah */
+    }
+
+    .hero-title {
+        font-size: 28px;
+        line-height: 1.3;
+    }
+
+    .hero-slide img {
+        height: 100%;
+        min-height: 500px; /* Pastikan gambar mencover area */
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* Tombol prev/next slider diperkecil */
+    .hero-nav {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    /* === LAYOUT GRIDS (STACKING) === */
+    /* Membuat semua grid menjadi 1 kolom memanjang ke bawah */
+    .info-grid, 
+    .news-grid, 
+    .facilities-grid, 
+    .extracurricular-grid, 
+    .staff-grid, 
+    .teachers-grid,
+    .contact-info-grid,
+    .gallery-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    /* === WELCOME / SAMBUTAN === */
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .welcome-badge {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        top: -10px;
+        right: 10px;
+    }
+
+    .kepala-info {
+        text-align: left; /* Kembalikan info kepsek rata kiri agar rapi */
+    }
+
+    /* === FOOTER === */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 15px;
+        text-align: left;
+    }
+
+    .footer-col:nth-child(1) {
+        grid-column: span 2;
+        text-align: center;
+    }
+
+    .footer-col:nth-child(4) {
+        grid-column: span 2;
+        text-align: center;
+    }
+
+    .footer-col:nth-child(2),
+    .footer-col:nth-child(3) {
+        padding: 0 5px;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .social-links, .contact-info {
+        justify-content: center;
+    }
+
+    .contact-info li {
+        justify-content: center;
+    }
+
+    /* === PROFILE PAGE === */
+    .profile-intro {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr); /* 2 kolom stats */
+        gap: 15px;
+    }
+    
+    .identity-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .visi-misi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* === NEWS DETAIL === */
+    .news-layout {
+        grid-template-columns: 1fr; /* Sidebar pindah ke bawah */
+    }
+    
+    .news-detail-main {
+        padding: 20px;
+    }
+    
+    .news-detail-header h1 {
+        font-size: 24px;
+    }
+
+    /* === CONTACT PAGE === */
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .info-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* === ADMIN DASHBOARD === */
+    .admin-sidebar {
+        transform: translateX(-100%); /* Sembunyikan sidebar default */
+    }
+
+    .admin-sidebar.active {
+        transform: translateX(0);
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .stats-grid, .quick-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Table scrollable pada dashboard */
+    .card-content {
+        overflow-x: auto;
+    }
+    
+    .data-table {
+        min-width: 600px; /* Agar tabel bisa digeser jika layar sempit */
+    }
+}
+
+/* === MOBILE PORTRAIT (HP KECIL - Max-width: 480px) === */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%; /* Tombol jadi full width di HP kecil */
+        text-align: center;
+    }
+    
+    .section-header .btn {
+        position: relative;
+        margin-top: 15px;
+    }
+
+    .page-header h1 {
+        font-size: 28px;
+    }
+
+    /* Gallery Filter tombol jadi full width atau scroll */
+    .gallery-filter {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        width: 100%;
+    }
+}
