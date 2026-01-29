@@ -55,166 +55,17 @@
     <!-- Gallery Filter -->
     <section class="gallery-section">
         <div class="container">
-            <div class="gallery-filter">
+            <div class="gallery-filters">
                 <button class="filter-btn active" data-filter="all">Semua</button>
                 <button class="filter-btn" data-filter="kegiatan">Kegiatan</button>
                 <button class="filter-btn" data-filter="prestasi">Prestasi</button>
                 <button class="filter-btn" data-filter="fasilitas">Fasilitas</button>
             </div>
 
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Kegiatan -->
-                <div class="gallery-item" data-category="kegiatan">
-                    <div class="gallery-image">
-                        <img src="images/gallery-1.jpg" alt="Upacara Bendera" onerror="this.src='https://via.placeholder.com/400x300/3498DB/ffffff?text=Upacara+Bendera'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Upacara Bendera</h4>
-                                <p>Upacara rutin setiap hari Senin</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)" aria-label="Perbesar gambar">
-                                <i class="fas fa-search-plus" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="kegiatan">
-                    <div class="gallery-image">
-                        <img src="images/gallery-2.jpg" alt="Kegiatan Belajar" onerror="this.src='https://via.placeholder.com/400x300/E74C3C/ffffff?text=Kegiatan+Belajar'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Kegiatan Belajar Mengajar</h4>
-                                <p>Suasana belajar yang menyenangkan</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)" aria-label="Perbesar gambar">
-                                <i class="fas fa-search-plus" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="kegiatan">
-                    <div class="gallery-image">
-                        <img src="images/gallery-3.jpg" alt="Kegiatan Pramuka" onerror="this.src='https://via.placeholder.com/400x300/2ECC71/ffffff?text=Pramuka'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Kegiatan Pramuka</h4>
-                                <p>Pembinaan karakter melalui pramuka</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="kegiatan">
-                    <div class="gallery-image">
-                        <img src="images/gallery-4.jpg" alt="Olahraga" onerror="this.src='https://via.placeholder.com/400x300/F39C12/ffffff?text=Olahraga'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Kegiatan Olahraga</h4>
-                                <p>Senam dan olahraga rutin</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Prestasi -->
-                <div class="gallery-item" data-category="prestasi">
-                    <div class="gallery-image">
-                        <img src="images/gallery-5.jpg" alt="Juara Cerdas Cermat" onerror="this.src='https://via.placeholder.com/400x300/9B59B6/ffffff?text=Juara+Cerdas+Cermat'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Juara 1 Cerdas Cermat</h4>
-                                <p>Tingkat Kabupaten 2024</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="prestasi">
-                    <div class="gallery-image">
-                        <img src="images/gallery-6.jpg" alt="Lomba Menggambar" onerror="this.src='https://via.placeholder.com/400x300/1ABC9C/ffffff?text=Lomba+Menggambar'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Juara 2 Lomba Menggambar</h4>
-                                <p>Tingkat Kecamatan 2024</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="prestasi">
-                    <div class="gallery-image">
-                        <img src="images/gallery-7.jpg" alt="Lomba Futsal" onerror="this.src='https://via.placeholder.com/400x300/E67E22/ffffff?text=Lomba+Futsal'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Juara 3 Futsal</h4>
-                                <p>Tingkat Kabupaten 2024</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fasilitas -->
-                <div class="gallery-item" data-category="fasilitas">
-                    <div class="gallery-image">
-                        <img src="images/gallery-8.jpg" alt="Ruang Kelas" onerror="this.src='https://via.placeholder.com/400x300/34495E/ffffff?text=Ruang+Kelas'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Ruang Kelas</h4>
-                                <p>Ruang kelas yang nyaman dan modern</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="fasilitas">
-                    <div class="gallery-image">
-                        <img src="images/gallery-9.jpg" alt="Perpustakaan" onerror="this.src='https://via.placeholder.com/400x300/16A085/ffffff?text=Perpustakaan'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Perpustakaan</h4>
-                                <p>Perpustakaan dengan koleksi lengkap</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="fasilitas">
-                    <div class="gallery-image">
-                        <img src="images/gallery-10.jpg" alt="Lab Komputer" onerror="this.src='https://via.placeholder.com/400x300/2980B9/ffffff?text=Lab+Komputer'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Lab Komputer</h4>
-                                <p>Laboratorium komputer modern</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="fasilitas">
-                    <div class="gallery-image">
-                        <img src="images/gallery-11.jpg" alt="Lapangan" onerror="this.src='https://via.placeholder.com/400x300/27AE60/ffffff?text=Lapangan'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Lapangan</h4>
-                                <p>Lapangan olahraga yang luas</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item" data-category="fasilitas">
-                    <div class="gallery-image">
-                        <img src="images/gallery-12.jpg" alt="Musholla" onerror="this.src='https://via.placeholder.com/400x300/8E44AD/ffffff?text=Musholla'">
-                        <div class="gallery-overlay">
-                            <div class="gallery-info">
-                                <h4>Musholla</h4>
-                                <p>Musholla untuk kegiatan ibadah</p>
-                            </div>
-                            <button class="gallery-zoom" onclick="openModal(this)"><i class="fas fa-search-plus"></i></button>
-                        </div>
-                    </div>
+            <div class="gallery-grid" id="publicGalleryGrid">
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--primary-color);"></i>
+                    <p style="margin-top: 15px; color: #666;">Memuat foto galeri...</p>
                 </div>
             </div>
         </div>
@@ -223,17 +74,14 @@
     <!-- Modal -->
     <div id="galleryModal" class="gallery-modal">
         <span class="modal-close">&times;</span>
-        
-        <button class="modal-nav modal-prev" onclick="changeImage(-1)">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        
-        <img class="modal-content" id="modalImage">
-        
-        <button class="modal-nav modal-next" onclick="changeImage(1)">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        <div id="modalCaption" class="modal-caption"></div>
+    
+        <div class="modal-content">
+            <img id="modalImage" src="">
+            <div id="modalCaption"></div>
+        </div>
+    
+        <a class="prev" onclick="changeImage(-1)">&#10094;</a>
+        <a class="next" onclick="changeImage(1)">&#10095;</a>
     </div>
 
     <!-- Footer -->

@@ -2677,3 +2677,331 @@ ul {
 .hidden {
     display: none;
 }
+
+/* === PERBAIKAN POP-UP HOVER === */
+.gallery-overlay {
+    background: rgba(0, 0, 0, 0.7);
+    /* Latar lebih gelap agar tulisan terbaca */
+    padding: 20px;
+    text-align: center;
+    /* Pastikan overlay menutupi seluruh area */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.gallery-info {
+    transform: translateY(20px);
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover .gallery-info {
+    transform: translateY(0);
+    /* Efek naik saat hover */
+}
+
+/* === PERBAIKAN TOMBOL CLOSE MODAL (PENTING) === */
+.gallery-modal {
+    z-index: 99999;
+    /* Paling atas dari segalanya */
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 50px;
+    /* Lebih besar */
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100000;
+    /* HARUS lebih tinggi dari gambar modal */
+    background: rgba(0, 0, 0, 0.5);
+    /* Background bulat agar terlihat di gambar putih */
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    background: #ef4444;
+    /* Merah saat hover */
+    color: white;
+    transform: rotate(90deg);
+    /* Efek putar */
+}
+
+.modal-content {
+    /* Pastikan gambar tidak menutupi tombol */
+    position: relative;
+    z-index: 99998;
+    max-height: 85vh;
+    /* Jangan terlalu penuh biar tombol close muat */
+}
+
+/* =========================================
+   PERBAIKAN TATA LETAK GALERI DASHBOARD
+   ========================================= */
+
+/* 1. Menjadikan wadah sebagai Grid */
+.gallery-admin-grid {
+    display: grid;
+    /* Membuat kolom otomatis. Minimal lebar 200px, maksimal memenuhi ruang */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    /* Jarak antar foto */
+    margin-top: 20px;
+}
+
+/* 2. Memastikan item di dalamnya rapi */
+.gallery-admin-item {
+    /* Inline style di JS sudah menangani ini, tapi kita pertegas di sini */
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Agar sudut gambar ikut melengkung */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sedikit bayangan biar cantik */
+    transition: transform 0.3s ease;
+}
+
+/* Efek saat mouse diarahkan ke foto */
+.gallery-admin-item:hover {
+    transform: translateY(-5px);
+    /* Sedikit naik */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Memastikan gambar mengisi penuh lebarnya */
+.gallery-admin-item img {
+    width: 100%;
+    /* height: 150px; <-- Ini sudah diatur di inline style JS */
+    object-fit: cover;
+}
+
+/* =========================================
+   PERBAIKAN TAMPILAN TOMBOL FILTER GALERI
+   ========================================= */
+
+/* 1. Wadah Tombol (Agar di tengah & berjarak) */
+.gallery-filters {
+    display: flex;
+    /* Mode baris */
+    justify-content: center;
+    /* Posisi di tengah layar */
+    gap: 15px;
+    /* Jarak antar tombol (PENTING) */
+    margin-bottom: 40px;
+    /* Jarak ke foto di bawahnya */
+    flex-wrap: wrap;
+    /* Agar tombol turun ke bawah kalau layar HP sempit */
+    margin-top: 20px;
+}
+
+/* 2. Desain Tombolnya */
+.filter-btn {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    /* Garis pinggir tipis */
+    padding: 10px 30px;
+    /* Isi tombol lebih luas */
+    border-radius: 50px;
+    /* Bentuk lonjong (kapsul) */
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.3s ease;
+    /* Efek halus saat diklik/hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    /* Bayangan tipis */
+}
+
+/* 3. Efek saat Kursor diarahkan (Hover) */
+.filter-btn:hover {
+    background: #f8f9fa;
+    border-color: #bdbdbd;
+    transform: translateY(-2px);
+    /* Tombol naik sedikit */
+}
+
+/* 4. Tampilan Tombol yang Sedang Aktif (Diklik) */
+.filter-btn.active {
+    background: #2563eb;
+    /* Warna Biru Utama (Sesuaikan dengan tema sekolahmu) */
+    color: white;
+    /* Teks jadi putih */
+    border-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    /* Bayangan biru bersinar */
+}
+
+/* =========================================
+   FIX GAMBAR MODAL AGAR TIDAK KEPOTONG
+   ========================================= */
+
+/* 1. Pastikan Modal menggunakan Flexbox agar gambar di tengah */
+#galleryModal {
+    display: none;
+    /* Default sembunyi */
+    /* Saat aktif (diatur JS), display akan berubah jadi flex */
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Hilangkan scroll bar browser */
+    background-color: rgba(0, 0, 0, 0.95);
+    /* Latar belakang gelap pekat */
+
+    /* PENTING: Flexbox untuk sentralisasi */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* 2. Style untuk Kotak Pembungkus Gambar */
+#galleryModal .modal-content {
+    background-color: transparent;
+    /* Hilangkan background putih */
+    margin: auto;
+    padding: 0;
+    border: none;
+    width: auto;
+    /* Lebar otomatis mengikuti gambar */
+    height: auto;
+    /* Tinggi otomatis */
+    max-width: 100%;
+    box-shadow: none;
+    position: relative;
+    text-align: center;
+}
+
+/* 3. Style KUNCI untuk Gambar (Agar Full & Tidak Crop) */
+#modalImage {
+    display: block;
+    width: auto;
+    /* Biarkan lebar asli */
+    height: auto;
+    /* Biarkan tinggi asli */
+
+    /* BATAS MAKSIMAL AGAR TIDAK MELEBIHI LAYAR */
+    max-width: 90vw;
+    /* Maksimal 90% dari lebar layar */
+    max-height: 80vh;
+    /* Maksimal 80% dari tinggi layar (sisa buat caption) */
+
+    object-fit: contain;
+    /* MAGIC CODE: Memastikan seluruh gambar terlihat utuh */
+
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid #fff;
+    /* Sedikit bingkai putih biar cantik */
+}
+
+/* 4. Style Caption di bawah gambar */
+#modalCaption {
+    margin: 15px auto;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: auto;
+}
+
+/* 5. Update agar Modal aktif menjadi Flex */
+#galleryModal.active {
+    display: flex !important;
+    /* Paksa jadi flex saat aktif */
+}
+
+/* Style untuk Kartu Guru di Dashboard */
+.guru-card {
+    background: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: grab;
+    position: relative;
+    /* Untuk tombol hapus absolute */
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.guru-card:active {
+    cursor: grabbing;
+}
+
+.guru-card img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.guru-info {
+    flex: 1;
+    line-height: 1.2;
+}
+
+.guru-info strong {
+    display: block;
+    font-size: 14px;
+}
+
+.guru-info small {
+    font-size: 11px;
+    color: #666;
+}
+
+/* Tombol Hapus Kecil di Pojok Kartu */
+.btn-delete-guru {
+    background: #ffcccc;
+    color: red;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    /* Muncul hanya saat hover */
+}
+
+.guru-card:hover .btn-delete-guru {
+    display: block;
+}
+
+/* Slot Kosong */
+.role-slot {
+    min-height: 60px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.role-slot.drag-over {
+    background: #e3f2fd;
+    border-color: #2196f3;
+}
