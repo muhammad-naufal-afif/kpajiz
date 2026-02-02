@@ -257,8 +257,9 @@
 
             <div id="modul-prestasi" class="module-section" style="display: none;">
                 <div class="page-actions">
-                    <button class="action-btn purple" onclick="openModal('modalPrestasi')"><i class="fas fa-plus"></i>
-                        Tambah Prestasi</button>
+                    <button class="action-btn purple" onclick="openModal('modalPrestasi')">
+                        <i class="fas fa-plus"></i> Tambah Prestasi
+                    </button>
                 </div>
                 <div class="table-responsive" style="margin-top: 20px;">
                     <table class="data-table">
@@ -272,19 +273,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Lomba Cerdas Cermat</td>
-                                <td><span class="badge blue">Juara 1</span></td>
-                                <td>Kabupaten</td>
-                                <td>10 Jan 2025</td>
-                                <td><img src="images/news-1.jpg"
-                                        style="width: 50px; height: 30px; object-fit: cover; border-radius: 4px;"></td>
-                                <td>
-                                    <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                        <tbody id="prestasiTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -466,23 +455,41 @@
         <div class="modal-content-box">
             <span class="close-modal" onclick="closeModal('modalPrestasi')">&times;</span>
             <h3>Tambah Prestasi</h3>
-            <form>
+            <form id="formTambahPrestasi">
                 <div class="form-group">
                     <label>Nama Lomba</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="judul" class="form-control" required placeholder="Contoh: Lomba Cerdas Cermat">
                 </div>
-                <div class="form-group">
-                    <label>Foto Dokumentasi / Sertifikat</label>
-                    <div class="upload-dropzone" id="prestasiPhotoDrop">
-                        <div class="dz-content">
-                            <i class="fas fa-image"></i>
-                            <p>Seret Foto Bukti ke Sini</p>
-                        </div>
-                        <img id="prestasiPreview" class="preview-img hidden">
-                        <input type="file" hidden>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                    <div class="form-group">
+                        <label>Peringkat</label>
+                        <input type="text" name="peringkat" class="form-control" placeholder="Contoh: Juara 1">
+                    </div>
+                    <div class="form-group">
+                        <label>Tingkat</label>
+                        <select name="tingkat" class="form-control">
+                            <option value="Kecamatan">Kecamatan</option>
+                            <option value="Kabupaten">Kabupaten</option>
+                            <option value="Provinsi">Provinsi</option>
+                            <option value="Nasional">Nasional</option>
+                        </select>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary w-100">Simpan Prestasi</button>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" name="tanggal" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Foto Dokumentasi</label>
+                    <div class="upload-dropzone" id="prestasiPhotoDrop">
+                        <div class="dz-content"><i class="fas fa-image"></i>
+                            <p>Klik / Drop Foto</p>
+                        </div>
+                        <img id="prestasiPreview" class="preview-img hidden">
+                        <input type="file" name="foto" id="prestasiInput" hidden accept="image/*">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Simpan Prestasi</button>
             </form>
         </div>
     </div>

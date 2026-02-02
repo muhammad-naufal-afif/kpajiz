@@ -1,50 +1,83 @@
 <?php
+// 1. Matikan error text agar JSON tidak rusak
+error_reporting(0);
+ini_set('display_errors', 0);
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json; charset=UTF-8");
+
 include '../../config/database.php';
 
-$judul = $_POST['judul'];
-$kategori = $_POST['kategori']; // Contoh: 'prestasi', 'kegiatan'
-$konten = $_POST['konten'];
-$status = $_POST['status'];
-$slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $judul)));
-
-$thumbnail = null;
-$upload_success = false;
-
-// 1. UPLOAD KE BERITA
-if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
-    $target_dir_berita = "../../uploads/berita/";
-    if (!file_exists($target_dir_berita)) mkdir($target_dir_berita, 0777, true);
-    
-    $file_ext = pathinfo($_FILES["thumbnail"]["name"], PATHINFO_EXTENSION);
-    $new_name = time() . "." . $file_ext;
-    
-    if(move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $target_dir_berita . $new_name)) {
-        $thumbnail = $new_name;
-        $upload_success = true;
-    }
+// FUNGSI BUAT SLUG (PENTING! Biar error 'slug doesn't have default value' hilang)
+function buatSlug($text) {
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    $text = trim($text, '-');
+    $text = preg_replace('~-+~', '-', $text);
+    $text = strtolower($text);
+    if (empty($text)) { return 'n-a'; }
+    return $text . '-' . time();
 }
 
-// 2. INSERT BERITA
-$stmt = $conn->prepare("INSERT INTO berita (judul, slug, kategori, konten, status, thumbnail) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssssss", $judul, $slug, $kategori, $konten, $status, $thumbnail);
+$response = [];
 
-if ($stmt->execute()) {
+try {
+    if (!$conn) throw new Exception("Koneksi Database Gagal");
+
+    // 2. Ambil Data Input dari Form
+    $judul    = $_POST['judul'];
+    $kategori = $_POST['kategori']; // Pastikan nilainya: kegiatan, prestasi, pengumuman, atau artikel
+    $konten   = $_POST['konten'];
+    $status   = $_POST['status'];   // published atau draft
     
-    // 3. COPY KE GALERI (SESUAI KATEGORI BERITA)
-    if ($upload_success && $thumbnail) {
-        $target_dir_galeri = "../../uploads/galeri/";
-        if (!file_exists($target_dir_galeri)) mkdir($target_dir_galeri, 0777, true);
+    // Validasi sederhana
+    if(empty($judul) || empty($konten)) {
+        throw new Exception("Judul dan Konten tidak boleh kosong.");
+    }
 
-        if (copy($target_dir_berita . $thumbnail, $target_dir_galeri . $thumbnail)) {
-            // Perhatikan: Kita menggunakan variabel $kategori dari input berita
-            $stmt_galeri = $conn->prepare("INSERT INTO galeri (judul, kategori, file_gambar) VALUES (?, ?, ?)");
-            $stmt_galeri->bind_param("sss", $judul, $kategori, $thumbnail);
-            $stmt_galeri->execute();
+    // 3. Buat Slug Otomatis
+    $slug = buatSlug($judul);
+
+    // 4. Proses Upload Thumbnail
+    $thumbnail_nama = null;
+    if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $target_dir = "../../uploads/berita/";
+        
+        // Buat folder jika belum ada
+        if (!file_exists($target_dir)) @mkdir($target_dir, 0777, true);
+        
+        $ext = pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION);
+        $new_name = time() . "_" . rand(100,999) . "." . $ext;
+        
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $target_dir . $new_name)) {
+            $thumbnail_nama = $new_name;
         }
     }
 
-    echo json_encode(["status" => "success", "message" => "Berita terbit & Masuk Galeri kategori " . $kategori]);
-} else {
-    echo json_encode(["status" => "error", "message" => $stmt->error]);
+    // Default values
+    $views = 0;
+    $created_at = date('Y-m-d H:i:s');
+
+    // 5. Simpan ke Database
+    // Kolom: judul, slug, kategori, konten, thumbnail, status, views, created_at
+    $stmt = $conn->prepare("INSERT INTO berita (judul, slug, kategori, konten, thumbnail, status, views, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    // s = string, i = integer
+    $stmt->bind_param("ssssssis", $judul, $slug, $kategori, $konten, $thumbnail_nama, $status, $views, $created_at);
+
+    if ($stmt->execute()) {
+        $response['status'] = 'success';
+        $response['message'] = 'Berita berhasil diterbitkan!';
+    } else {
+        throw new Exception("Gagal simpan DB: " . $stmt->error);
+    }
+
+} catch (Exception $e) {
+    $response['status'] = 'error';
+    $response['message'] = $e->getMessage();
 }
+
+echo json_encode($response);
 ?>

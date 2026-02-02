@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tbody = document.querySelector('#modul-berita tbody');
         if (!tbody) return;
 
-        fetch(API_URL + 'berita/read.php')
+        fetch(API_URL + 'berita/read.php?limit=20')
             .then(res => res.json())
             .then(data => {
                 let html = '';
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const badgeClass = item.status === 'published' ? 'green' : 'orange';
                     html += `
                         <tr>
-                            <td><img src="${UPLOAD_URL}berita/${item.thumbnail}" style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;" onerror="this.src='https://via.placeholder.com/80x50'"></td>
+                            <td><img src="${UPLOAD_URL}berita/${item.thumbnail}" style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;" onerror="this.src=''"></td>
                             <td><strong>${item.judul}</strong><div style="font-size: 11px; color: #888;">Views: ${item.views}</div></td>
                             <td><span class="badge blue">${item.kategori}</span></td>
                             <td>Admin</td>
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const filterKategori = urlParams.get('kategori');
 
-        fetch(API_URL + 'berita/read.php')
+        fetch(API_URL + 'berita/read.php?limit=20')
         .then(res => res.json())
         .then(data => {
             // 1. Filter Data (Hanya Published)
@@ -552,6 +552,70 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(err);
             publicNewsList.innerHTML = '<p style="text-align:center; color:red;">Gagal memuat berita.</p>';
         });
+    }
+
+    // ======================================================
+    // 14. LOAD PRESTASI DI HALAMAN DEPAN (PUBLIK)
+    // ======================================================
+    
+    const publicPrestasiGrid = document.getElementById('publicPrestasiGrid');
+    
+    if (publicPrestasiGrid) {
+        loadPublicPrestasi();
+    }
+
+    function loadPublicPrestasi() {
+        // Ambil 3 atau 6 prestasi terbaru saja biar rapi
+        fetch(API_URL + 'prestasi/read.php?limit=3') 
+        .then(res => res.json())
+        .then(data => {
+            let html = '';
+            
+            if(data.length === 0) {
+                publicPrestasiGrid.innerHTML = '<p class="text-center">Belum ada data prestasi.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                // Format Tanggal
+                const date = new Date(item.tanggal).toLocaleDateString('id-ID', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                });
+
+                // Warna Badge Tingkat
+                let badgeColor = '#3b82f6'; // Biru (Default)
+                if(item.tingkat === 'Provinsi') badgeColor = '#8b5cf6'; // Ungu
+                if(item.tingkat === 'Nasional') badgeColor = '#f59e0b'; // Oranye
+
+                html += `
+                    <div class="achievement-card" style="background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                        <div style="position: relative; height: 200px;">
+                            <img src="${UPLOAD_URL}prestasi/${item.foto}" 
+                                 alt="${item.judul}"
+                                 style="width: 100%; height: 100%; object-fit: cover;"
+                                 onerror="this.src='https://via.placeholder.com/400x200?text=Prestasi'">
+                            <span style="position: absolute; top: 15px; right: 15px; background: ${badgeColor}; color: white; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">
+                                ${item.tingkat}
+                            </span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="color: #666; font-size: 13px; margin-bottom: 5px;">
+                                <i class="far fa-calendar-alt"></i> ${date}
+                            </div>
+                            <h3 style="font-size: 18px; font-weight: 700; color: #333; margin-bottom: 10px; line-height: 1.4;">
+                                ${item.judul}
+                            </h3>
+                            <div style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 5px 10px; border-radius: 6px; font-size: 13px; font-weight: 600;">
+                                <i class="fas fa-trophy"></i> ${item.peringkat}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            publicPrestasiGrid.innerHTML = html;
+        })
+        .catch(err => console.error("Gagal muat prestasi:", err));
     }
 
     // --- FUNGSI RENDER ITEM BERITA (POTONG ARRAY) ---
@@ -693,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadSidebarData() {
-        fetch(API_URL + 'berita/read.php')
+        fetch(API_URL + 'berita/read.php?limit=20')
         .then(res => res.json())
         .then(data => {
             // --- A. LOGIKA KATEGORI & COUNTER ---
@@ -791,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadPublicGallery() {
-        fetch(API_URL + 'galeri/read.php')
+        fetch(API_URL + 'galeri/read.php?limit=20')
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -852,7 +916,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const grid = document.getElementById('adminGalleryGrid');
         if (!grid) return;
 
-        fetch(API_URL + 'galeri/read.php')
+        fetch(API_URL + 'galeri/read.php?limit=20')
         .then(res => res.json())
         .then(data => {
             if (data.length === 0) {
@@ -1164,6 +1228,105 @@ document.addEventListener('DOMContentLoaded', () => {
         element.addEventListener('dragstart', () => element.classList.add('dragging'));
         element.addEventListener('dragend', () => element.classList.remove('dragging'));
     }
+
+    // ======================================================
+    // 13. MANAJEMEN PRESTASI (CRUD)
+    // ======================================================
+
+    // Cek apakah tabel prestasi ada di halaman
+    if (document.getElementById('prestasiTableBody')) {
+        loadPrestasiData();
+        // Gunakan setupUploadZone global yang ada di paling bawah file
+        // Parameter: ID Dropzone, ID Input, isMultiple, ID PreviewImg
+        setupUploadZone('prestasiPhotoDrop', 'prestasiInput', false, 'prestasiPreview');
+    }
+
+    // A. Load Data
+    function loadPrestasiData() {
+        const tbody = document.getElementById('prestasiTableBody');
+        if(!tbody) return;
+
+        fetch(API_URL + 'prestasi/read.php')
+        .then(res => res.json())
+        .then(data => {
+            let html = '';
+            if (data.length === 0) {
+                html = '<tr><td colspan="6" class="text-center">Belum ada data prestasi.</td></tr>';
+            } else {
+                data.forEach(item => {
+                    const date = new Date(item.tanggal).toLocaleDateString('id-ID', {
+                        day: 'numeric', month: 'short', year: 'numeric'
+                    });
+                    
+                    let color = 'blue';
+                    if(item.tingkat === 'Provinsi') color = 'purple';
+                    if(item.tingkat === 'Nasional') color = 'orange';
+
+                    html += `
+                        <tr>
+                            <td><strong>${item.judul}</strong></td>
+                            <td><span class="badge green">${item.peringkat}</span></td>
+                            <td><span class="badge ${color}">${item.tingkat}</span></td>
+                            <td>${date}</td>
+                            <td>
+                                <img src="${UPLOAD_URL}prestasi/${item.foto}" 
+                                     style="width:50px; height:35px; object-fit:cover; border-radius:4px; cursor:pointer;"
+                                     onclick="window.open(this.src)">
+                            </td>
+                            <td>
+                                <button class="btn-icon" onclick="deletePrestasi(${item.id})">
+                                    <i class="fas fa-trash" style="color:red;"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            tbody.innerHTML = html;
+        });
+    }
+
+    // B. Tambah Prestasi
+    const formPrestasi = document.getElementById('formTambahPrestasi');
+    if (formPrestasi) {
+        formPrestasi.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(formPrestasi);
+
+            fetch(API_URL + 'prestasi/create.php', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('Prestasi berhasil disimpan!', 'success');
+                    closeModal('modalPrestasi');
+                    formPrestasi.reset();
+                    // Sembunyikan preview foto setelah reset
+                    const preview = document.getElementById('prestasiPreview');
+                    if(preview) preview.classList.add('hidden');
+                    
+                    loadPrestasiData();
+                } else {
+                    showNotification('Gagal: ' + data.message, 'error');
+                }
+            });
+        });
+    }
+
+    // C. Hapus Prestasi
+    window.deletePrestasi = function(id) {
+        if (confirm('Hapus data prestasi ini?')) {
+            const formData = new FormData();
+            formData.append('id', id);
+            fetch(API_URL + 'prestasi/delete.php', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('Data dihapus.', 'success');
+                    loadPrestasiData();
+                }
+            });
+        }
+    };
 }); // END DOMContentLoaded
 
 // ======================================================

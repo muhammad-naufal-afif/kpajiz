@@ -1,13 +1,26 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 include '../../config/database.php';
 
-$sql = "SELECT * FROM berita ORDER BY created_at DESC";
-$result = $conn->query($sql);
-
-$berita = [];
-while ($row = $result->fetch_assoc()) {
-    $berita[] = $row;
+// Logika Limit Data
+$limit_clause = "";
+if (isset($_GET['limit'])) {
+    $limit = intval($_GET['limit']);
+    $limit_clause = "LIMIT $limit";
 }
 
-echo json_encode($berita);
+// Query Standar (Sesuai kolom tabel berita kamu: judul, kategori, status, dll)
+$sql = "SELECT * FROM berita ORDER BY created_at DESC $limit_clause";
+$result = $conn->query($sql);
+
+$data = [];
+
+if ($result) {
+    while($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
+echo json_encode($data);
 ?>
