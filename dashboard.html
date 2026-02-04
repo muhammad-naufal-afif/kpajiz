@@ -24,6 +24,9 @@
             <a href="#" class="nav-item" onclick="switchModule('berita', this)">
                 <i class="fas fa-newspaper"></i> <span>Berita</span>
             </a>
+            <a href="#" class="nav-item" onclick="switchModule('pesan', this)">
+                <i class="fas fa-envelope"></i> <span>Pesan Masuk</span>
+            </a>
             <a href="#" class="nav-item" onclick="switchModule('galeri', this)">
                 <i class="fas fa-images"></i> <span>Galeri</span>
             </a>
@@ -100,46 +103,16 @@
                         </div>
                     </div>
 
-                    <div class="org-section">
-                        <h3 class="mb-3">Wali Kelas & Guru Mapel</h3>
-                        <div class="classroom-grid"
-                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
-
-                            <div class="role-slot" data-slot="1a" id="slot-1a"><span class="slot-label">Kelas 1A</span>
-                            </div>
-                            <div class="role-slot" data-slot="1b" id="slot-1b"><span class="slot-label">Kelas 1B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="2a" id="slot-2a"><span class="slot-label">Kelas 2A</span>
-                            </div>
-                            <div class="role-slot" data-slot="2b" id="slot-2b"><span class="slot-label">Kelas 2B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="3a" id="slot-3a"><span class="slot-label">Kelas 3A</span>
-                            </div>
-                            <div class="role-slot" data-slot="3b" id="slot-3b"><span class="slot-label">Kelas 3B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="4a" id="slot-4a"><span class="slot-label">Kelas 4A</span>
-                            </div>
-                            <div class="role-slot" data-slot="4b" id="slot-4b"><span class="slot-label">Kelas 4B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="5a" id="slot-5a"><span class="slot-label">Kelas 5A</span>
-                            </div>
-                            <div class="role-slot" data-slot="5b" id="slot-5b"><span class="slot-label">Kelas 5B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="6a" id="slot-6a"><span class="slot-label">Kelas 6A</span>
-                            </div>
-                            <div class="role-slot" data-slot="6b" id="slot-6b"><span class="slot-label">Kelas 6B</span>
-                            </div>
-
-                            <div class="role-slot" data-slot="agama" id="slot-agama"><span class="slot-label">Guru
-                                    Agama</span></div>
-                            <div class="role-slot" data-slot="penjas" id="slot-penjas"><span class="slot-label">Guru
-                                    Penjas</span></div>
-                        </div>
+                    <div class="classroom-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                    
+                        <div class="role-slot" data-slot="1" id="slot-1"><span class="slot-label">Kelas 1</span></div>
+                        <div class="role-slot" data-slot="2" id="slot-2"><span class="slot-label">Kelas 2</span></div>
+                        <div class="role-slot" data-slot="3" id="slot-3"><span class="slot-label">Kelas 3</span></div>
+                        <div class="role-slot" data-slot="4" id="slot-4"><span class="slot-label">Kelas 4</span></div>
+                        <div class="role-slot" data-slot="5" id="slot-5"><span class="slot-label">Kelas 5</span></div>
+                        <div class="role-slot" data-slot="6" id="slot-6"><span class="slot-label">Kelas 6</span></div>
+                    
                     </div>
 
                     <div class="org-section">
@@ -218,57 +191,109 @@
                 </div>
             </div>
 
+            <div id="modul-pesan" class="module-section" style="display: none;">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Daftar Pesan Masuk</h3>
+                        <button class="btn-icon" onclick="loadPesanData()"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Pengirim</th>
+                                    <th>Subjek</th>
+                                    <th>Pesan</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pesanTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div id="modul-pengaturan" class="module-section" style="display: none;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3><i class="fas fa-school"></i> Identitas Sekolah</h3>
+                            <h3><i class="fas fa-user-plus"></i> Tambah Admin Baru</h3>
                         </div>
                         <div class="card-content" style="padding: 20px;">
-                            <form>
+                            <form id="formTambahAdmin">
                                 <div class="form-group">
-                                    <label>Nama Sekolah</label>
-                                    <input type="text" class="form-control" value="SD NEGERI 2 BAWANG">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" name="nama" class="form-control" required placeholder="Contoh: Budi Santoso">
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat Lengkap</label>
-                                    <textarea class="form-control"
-                                        rows="3">Desa Bawang, Kec. Bawang, Kab. Banjarnegara</textarea>
+                                    <label>Username</label>
+                                    <input type="text" name="username" class="form-control" required
+                                        placeholder="Untuk login nanti">
                                 </div>
                                 <div class="form-group">
-                                    <label>Email Sekolah</label>
-                                    <input type="email" class="form-control" value="sdn2bawang@gmail.com">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" required
+                                        placeholder="Minimal 6 karakter">
                                 </div>
-                                <div class="form-group">
-                                    <label>Telepon</label>
-                                    <input type="text" class="form-control" value="(0286) 123456">
-                                </div>
-                                <button class="btn btn-primary" style="width: auto;">Simpan Perubahan</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                    <i class="fas fa-save"></i> Simpan Admin
+                                </button>
                             </form>
                         </div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 30px;">
-                        <div class="dashboard-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-user-shield"></i> Ganti Password</h3>
-                            </div>
-                            <div class="card-content" style="padding: 20px;">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Password Lama</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password Baru</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                    <button class="btn btn-primary" style="background: var(--accent-color);">Update
-                                        Password</button>
-                                </form>
-                            </div>
+            
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-key"></i> Ganti Password Saya</h3>
+                        </div>
+                        <div class="card-content" style="padding: 20px;">
+                            <form id="formGantiPassword">
+                                <div class="form-group">
+                                    <label>Password Lama</label>
+                                    <input type="password" name="old_password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password Baru</label>
+                                    <input type="password" name="new_password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Konfirmasi Password Baru</label>
+                                    <input type="password" id="confirm_password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="background: var(--accent-color); width: 100%;">
+                                    Update Password
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
+            
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-users-cog"></i> Daftar Admin Terdaftar</h3>
+                        <button class="btn-icon" onclick="loadAdminData()"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Terdaftar</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            
             </div>
 
         </div>

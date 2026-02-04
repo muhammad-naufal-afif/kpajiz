@@ -1,4 +1,5 @@
 <?php
+include '../helper_image.php';
 // 1. Matikan error text agar JSON tidak rusak
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -45,13 +46,22 @@ try {
     if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
         $target_dir = "../../uploads/berita/";
         
-        // Buat folder jika belum ada
         if (!file_exists($target_dir)) @mkdir($target_dir, 0777, true);
         
+        // Pakai JPG/PNG biar aman
         $ext = pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION);
         $new_name = time() . "_" . rand(100,999) . "." . $ext;
+        $target_file = $target_dir . $new_name;
         
-        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $target_dir . $new_name)) {
+        // --- PERBAIKAN DISINI ---
+        // JANGAN pakai move_uploaded_file, tapi pakai resizeImage biar file kecil & ringan
+        
+        // move_uploaded_file($_FILES['thumbnail']['tmp_name'], $target_file); <-- INI BIKIN BERAT
+        
+        resizeImage($_FILES['thumbnail']['tmp_name'], $target_file, 800); // <-- PAKAI INI (Max lebar 800px)
+        
+        // Cek apakah file berhasil dibuat oleh resizeImage
+        if (file_exists($target_file)) {
             $thumbnail_nama = $new_name;
         }
     }

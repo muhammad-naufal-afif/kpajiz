@@ -1,18 +1,32 @@
 <?php
 session_start();
+// Header ini penting biar browser tahu ini JSON
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+
 include '../../config/database.php';
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
 
-// Cek user di database
-$stmt = $conn->prepare("SELECT id, password, role, nama_lengkap, foto FROM users WHERE username = ?");
+// PERBAIKAN DISINI: 
+// 1. Ganti 'nama_lengkap' jadi 'nama' (sesuai database)
+// 2. Hapus 'foto' (biar ga error kalau kolomnya belum ada)
+$stmt = $conn->prepare("SELECT id, password, role, nama FROM users WHERE username = ?");
+
+// Cek jika query gagal disiapkan (misal salah nama tabel)
+if(!$stmt) {
+    echo json_encode(["status" => "error", "message" => "Query Error: " . $conn->error]);
+    exit();
+}
+
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
-    // Verifikasi Password (Hash)
+    // Verifikasi Password
     if (password_verify($password, $row['password'])) {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
@@ -20,9 +34,9 @@ if ($row = $result->fetch_assoc()) {
         echo json_encode([
             "status" => "success",
             "data" => [
-                "nama" => $row['nama_lengkap'],
-                "role" => $row['role'],
-                "foto" => $row['foto']
+                "id" => $row['id'],       // Penting buat localStorage
+                "nama" => $row['nama'],   // Sudah diperbaiki (bukan nama_lengkap)
+                "role" => $row['role']
             ]
         ]);
     } else {

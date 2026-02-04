@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri - SD NEGERI 2 BAWANG</title>
+    <title>Galeri Sekolah - SD NEGERI 2 BAWANG</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Navbar -->
+
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <img src="images/logoo.png" alt="Logo SD Negeri 2 Bawang" onerror="this.style.display='none'">
+                    <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'">
                     <div class="logo-text">
                         <h3>SD NEGERI 2 BAWANG</h3>
                         <p>Mencerdaskan Generasi Bangsa</p>
                     </div>
                 </div>
-                <button class="nav-toggle" id="navToggle" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="navMenu">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </button>
+                <button class="nav-toggle" id="navToggle"><span aria-hidden="true"></span><span
+                        aria-hidden="true"></span><span aria-hidden="true"></span></button>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html">Beranda</a></li>
                     <li><a href="profile.html">Profile</a></li>
@@ -33,17 +33,15 @@
                     <li><a href="galeri.html" class="active">Galeri</a></li>
                     <li><a href="berita.html">Berita</a></li>
                     <li><a href="kontak.html">Kontak</a></li>
-                    <li><a href="login.html" class="btn-admin"><i class="fas fa-lock"></i> Admin</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-overlay"></div>
         <div class="container">
-            <h1>Galeri Foto</h1>
+            <h1>Galeri Kegiatan</h1>
             <div class="breadcrumb">
                 <a href="index.html">Beranda</a>
                 <span>/</span>
@@ -52,79 +50,54 @@
         </div>
     </section>
 
-    <!-- Gallery Filter -->
     <section class="gallery-section">
         <div class="container">
-            <div class="gallery-filters">
+            <div class="gallery-filter">
                 <button class="filter-btn active" data-filter="all">Semua</button>
                 <button class="filter-btn" data-filter="kegiatan">Kegiatan</button>
-                <button class="filter-btn" data-filter="prestasi">Prestasi</button>
                 <button class="filter-btn" data-filter="fasilitas">Fasilitas</button>
+                <button class="filter-btn" data-filter="prestasi">Prestasi</button>
             </div>
 
             <div class="gallery-grid" id="publicGalleryGrid">
-                <div style="grid-column: 1 / -1; text-align: center; padding: 60px;">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--primary-color);"></i>
-                    <p style="margin-top: 15px; color: #666;">Memuat foto galeri...</p>
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Memuat Galeri...
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="galleryModal" class="gallery-modal">
-        <span class="modal-close">&times;</span>
-    
-        <div class="modal-content">
-            <img id="modalImage" src="">
-            <div id="modalCaption"></div>
-        </div>
-    
-        <a class="prev" onclick="changeImage(-1)">&#10094;</a>
-        <a class="next" onclick="changeImage(1)">&#10095;</a>
+    <div class="modal-gallery" id="galleryModal">
+        <span class="modal-close" onclick="closeGalleryModal()">&times;</span>
+        <img id="modalImage" src="" alt="Preview">
+        <div id="modalCaption"></div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-top">
             <div class="container">
                 <div class="footer-grid">
                     <div class="footer-col">
                         <div class="footer-logo">
-                            <img src="images/logoo.png" alt="Logo" onerror="this.style.display='none'">
+                            <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'">
                             <h3>SD NEGERI 2 BAWANG</h3>
                         </div>
-                        <p>Sekolah Dasar berkualitas yang berkomitmen membentuk generasi cerdas, berkarakter, dan berprestasi.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
+                        <p>Sekolah Dasar berkualitas yang berkomitmen membentuk generasi cerdas, berkarakter, dan
+                            berprestasi.</p>
                     </div>
                     <div class="footer-col">
                         <h4>Menu Cepat</h4>
                         <ul>
                             <li><a href="index.html">Beranda</a></li>
-                            <li><a href="profile.html">Profile</a></li>
                             <li><a href="guru-staff.html">Guru & Staff</a></li>
                             <li><a href="galeri.html">Galeri</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Informasi</h4>
-                        <ul>
-                            <li><a href="berita.html">Berita</a></li>
-                            <li><a href="kontak.html">Kontak</a></li>
-                            <li><a href="login.html">Login Admin</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
                         <h4>Kontak Kami</h4>
                         <ul class="contact-info">
-                            <li><i class="fas fa-map-marker-alt"></i> Jl. Raya Bawang No. 123, Bawang, Banjarnegara</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Jl. Raya Bawang No. 123</li>
                             <li><i class="fas fa-phone"></i> (0286) 123456</li>
-                            <li><i class="fas fa-envelope"></i> sdnegeri2bawang@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -139,4 +112,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>

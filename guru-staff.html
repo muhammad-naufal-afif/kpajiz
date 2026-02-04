@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guru & Staff - SD NEGERI 2 BAWANG</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <img src="images/logoo.png" alt="Logo SD Negeri 2 Bawang" onerror="this.style.display='none'">
+                    <img src="images/logoo.png" alt="Logo" onerror="this.style.display='none'">
                     <div class="logo-text">
                         <h3>SD NEGERI 2 BAWANG</h3>
                         <p>Mencerdaskan Generasi Bangsa</p>
                     </div>
                 </div>
-                <button class="nav-toggle" id="navToggle" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="navMenu">
+                <button class="nav-toggle" id="navToggle">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -33,13 +35,11 @@
                     <li><a href="galeri.html">Galeri</a></li>
                     <li><a href="berita.html">Berita</a></li>
                     <li><a href="kontak.html">Kontak</a></li>
-                    <li><a href="login.html" class="btn-admin"><i class="fas fa-lock"></i> Admin</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-overlay"></div>
         <div class="container">
@@ -52,188 +52,39 @@
         </div>
     </section>
 
-    <!-- Kepala Sekolah -->
-    <section class="headmaster-section">
+    <section class="headmaster-section" id="section-kepsek" style="display: none;">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Kepala Sekolah</h2>
             </div>
-            <div class="headmaster-card">
-                <div class="headmaster-image">
-                    <img src="images/kepala-sekolah.jpg" alt="Kepala Sekolah" onerror="this.src='https://via.placeholder.com/300x400/34495E/ffffff?text=Kepala+Sekolah'">
-                </div>
-                <div class="headmaster-info">
-                    <h3>Dra. Siti Nurjanah, M.Pd</h3>
-                    <span class="position">Kepala Sekolah</span>
-                    <div class="info-details">
-                        <div class="detail-item">
-                            <i class="fas fa-id-card"></i>
-                            <span>NIP: 196505121987032007</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>S2 Pendidikan Dasar</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>kepala@sdnegeri2bawang.sch.id</span>
-                        </div>
-                    </div>
-                    <p>Dengan pengalaman lebih dari 25 tahun di dunia pendidikan, Ibu Siti Nurjanah memimpin SD Negeri 2 Bawang dengan dedikasi tinggi untuk mewujudkan pendidikan berkualitas bagi seluruh siswa.</p>
-                </div>
-            </div>
+            <div id="publicHeadmasterContainer"></div>
         </div>
     </section>
 
-    <!-- Guru -->
     <section class="teachers-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Dewan Guru</h2>
                 <p>Tenaga pengajar profesional dan berpengalaman</p>
             </div>
-            <div class="teachers-grid">
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-1.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/3498DB/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Ahmad Fauzi, S.Pd</h4>
-                        <span class="position">Wali Kelas 6A</span>
-                        <p class="subject">Guru Kelas</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-2.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/E74C3C/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Sri Rahayu, S.Pd</h4>
-                        <span class="position">Wali Kelas 5A</span>
-                        <p class="subject">Guru Kelas</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-3.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/2ECC71/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Budi Santoso, S.Pd</h4>
-                        <span class="position">Wali Kelas 4A</span>
-                        <p class="subject">Guru Kelas</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-4.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/F39C12/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Dewi Lestari, S.Pd</h4>
-                        <span class="position">Wali Kelas 3A</span>
-                        <p class="subject">Guru Kelas</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-5.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/9B59B6/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Eko Prasetyo, S.Pd</h4>
-                        <span class="position">Guru Olahraga</span>
-                        <p class="subject">PJOK</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-6.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/1ABC9C/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Ratna Sari, S.Pd</h4>
-                        <span class="position">Guru Seni Budaya</span>
-                        <p class="subject">SBdP</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-7.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/E67E22/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Hendra Wijaya, S.Kom</h4>
-                        <span class="position">Guru TIK</span>
-                        <p class="subject">Komputer</p>
-                    </div>
-                </div>
-                <div class="teacher-card">
-                    <div class="teacher-image">
-                        <img src="images/guru-8.jpg" alt="Guru" onerror="this.src='https://via.placeholder.com/300x350/34495E/ffffff?text=Guru'">
-                        <div class="teacher-overlay">
-                        </div>
-                    </div>
-                    <div class="teacher-info">
-                        <h4>Nur Hidayah, S.Pd.I</h4>
-                        <span class="position">Guru PAI</span>
-                        <p class="subject">Pendidikan Agama Islam</p>
-                    </div>
-                </div>
+            <div class="teachers-grid" id="publicGuruGrid">
+                <p style="text-align:center; width:100%; grid-column: 1/-1;">Memuat data guru...</p>
             </div>
         </div>
     </section>
 
-    <!-- Staff -->
     <section class="staff-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Tenaga Kependidikan</h2>
                 <p>Staff administrasi dan pendukung kegiatan sekolah</p>
             </div>
-            <div class="staff-grid">
-                <div class="staff-card">
-                    <div class="staff-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h4>Bambang Susilo</h4>
-                    <p class="position">Kepala Tata Usaha</p>
-                </div>
-                <div class="staff-card">
-                    <div class="staff-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <h4>Yuni Astuti</h4>
-                    <p class="position">Operator Sekolah</p>
-                </div>
-                <div class="staff-card">
-                    <div class="staff-icon">
-                        <i class="fas fa-book-reader"></i>
-                    </div>
-                    <h4>Rina Wati</h4>
-                    <p class="position">Pustakawan</p>
-                </div>
-                <div class="staff-card">
-                    <div class="staff-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h4>Agus Hermawan</h4>
-                    <p class="position">Penjaga Sekolah</p>
-                </div>
+            <div class="staff-grid" id="publicStaffGrid">
+                <p style="text-align:center; width:100%; grid-column: 1/-1;">Memuat data staff...</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-top">
             <div class="container">
@@ -243,13 +94,8 @@
                             <img src="images/logoo.png" alt="Logo" onerror="this.style.display='none'">
                             <h3>SD NEGERI 2 BAWANG</h3>
                         </div>
-                        <p>Sekolah Dasar berkualitas yang berkomitmen membentuk generasi cerdas, berkarakter, dan berprestasi.</p>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                        </div>
+                        <p>Sekolah Dasar berkualitas yang berkomitmen membentuk generasi cerdas, berkarakter, dan
+                            berprestasi.</p>
                     </div>
                     <div class="footer-col">
                         <h4>Menu Cepat</h4>
@@ -261,19 +107,10 @@
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Informasi</h4>
-                        <ul>
-                            <li><a href="berita.html">Berita</a></li>
-                            <li><a href="kontak.html">Kontak</a></li>
-                            <li><a href="login.html">Login Admin</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-col">
                         <h4>Kontak Kami</h4>
                         <ul class="contact-info">
                             <li><i class="fas fa-map-marker-alt"></i> Jl. Raya Bawang No. 123, Bawang, Banjarnegara</li>
                             <li><i class="fas fa-phone"></i> (0286) 123456</li>
-                            <li><i class="fas fa-envelope"></i> sdnegeri2bawang@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -288,4 +125,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>

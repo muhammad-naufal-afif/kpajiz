@@ -1,21 +1,27 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 include '../../config/database.php';
 
-// Ambil JSON input dari JS
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
 if (!empty($data)) {
-    foreach ($data as $item) {
-        $id = $item['id'];
-        $jabatan = $item['jabatan'];
-
+    // Mulai Transaksi biar aman
+    $conn->begin_transaction();
+    try {
         $stmt = $conn->prepare("UPDATE guru SET jabatan = ? WHERE id = ?");
-        $stmt->bind_param("si", $jabatan, $id);
-        $stmt->execute();
+        foreach ($data as $item) {
+            $stmt->bind_param("si", $item['jabatan'], $item['id']);
+            $stmt->execute();
+        }
+        $conn->commit();
+        echo json_encode(["status" => "success", "message" => "Posisi berhasil disimpan"]);
+    } catch (Exception $e) {
+        $conn->rollback();
+        echo json_encode(["status" => "error", "message" => "Gagal: " . $e->getMessage()]);
     }
-    echo json_encode(["status" => "success"]);
 } else {
-    echo json_encode(["status" => "error", "message" => "No data"]);
+    echo json_encode(["status" => "error", "message" => "Tidak ada data yang dikirim"]);
 }
 ?>
