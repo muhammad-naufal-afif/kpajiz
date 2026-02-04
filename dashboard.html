@@ -83,118 +83,14 @@
                 </div>
             </div>
 
-            <div id="modul-guru" class="module-section" style="display: none;">
-                <div class="page-actions" style="margin-bottom: 20px; display: flex; gap: 10px;">
-                    <button class="action-btn blue" onclick="openModal('modalTambahGuru')">
-                        <i class="fas fa-plus"></i> Tambah Guru Baru
-                    </button>
-                    <button class="action-btn green" onclick="saveGuruPositions()">
-                        <i class="fas fa-save"></i> Simpan Posisi Struktur
-                    </button>
-                </div>
             
-                <div class="jabatan-manager">
-                    <div class="org-chart-area"
-                        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-bottom: 30px;">
-            
-                        <div class="org-box">
-                            <h4>Kepala Sekolah</h4>
-                            <div class="role-slot special-slot" data-slot="kepala_sekolah" id="slot-kepala_sekolah">
-                            </div>
-                        </div>
-            
-                        <div class="org-box">
-                            <h4>Wali Kelas 1</h4>
-                            <div style="display:flex; gap:10px;">
-                                <div class="role-slot" data-slot="1a" id="slot-1a"><small>1A</small></div>
-                                <div class="role-slot" data-slot="1b" id="slot-1b"><small>1B</small></div>
-                            </div>
-                        </div>
-            
-                        <div class="org-box">
-                            <h4>Wali Kelas 2</h4>
-                            <div style="display:flex; gap:10px;">
-                                <div class="role-slot" data-slot="2a" id="slot-2a"><small>2A</small></div>
-                                <div class="role-slot" data-slot="2b" id="slot-2b"><small>2B</small></div>
-                            </div>
-                        </div>
-            
-                    </div>
-            
-                    <hr>
-            
-                    <h3 class="mb-3">Daftar Semua Guru & Staff (Drag dari sini)</h3>
-                    <p style="font-size:12px; color:#666;">Klik tombol <b>X</b> pada kartu untuk menghapus Guru permanen.</p>
-            
-                    <div class="staff-pool" id="staffPool">
-                        <p>Memuat data guru...</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="modul-guru" class="module-section" style="display: none;">
-            
-                <div class="page-actions" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
-                    <button class="action-btn blue" onclick="openModal('modalTambahGuru')">
-                        <i class="fas fa-plus"></i> Tambah Guru
-                    </button>
-                    <button class="action-btn green" onclick="saveGuruPositions()">
-                        <i class="fas fa-save"></i> Simpan Posisi
-                    </button>
-                </div>
-            
-                <div class="jabatan-manager">
-            
-                    <div class="org-section">
-                        <h3 class="text-center mb-3">Kepala Sekolah</h3>
-                        <div class="role-slot special-slot" data-slot="kepala_sekolah" id="slot-kepala_sekolah">
-                        </div>
-                    </div>
-            
-                    <div class="org-section">
-                        <h3 class="mb-3">Wali Kelas</h3>
-                        <div class="classroom-grid"
-                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
-                            <div class="role-slot" data-slot="1a" id="slot-1a">
-                                <span class="slot-label">Kelas 1A</span>
-                            </div>
-                            <div class="role-slot" data-slot="1b" id="slot-1b">
-                                <span class="slot-label">Kelas 1B</span>
-                            </div>
-            
-                            <div class="role-slot" data-slot="2a" id="slot-2a">
-                                <span class="slot-label">Kelas 2A</span>
-                            </div>
-                            <div class="role-slot" data-slot="2b" id="slot-2b">
-                                <span class="slot-label">Kelas 2B</span>
-                            </div>
-            
-                            <div class="role-slot" data-slot="3a" id="slot-3a">
-                                <span class="slot-label">Kelas 3A</span>
-                            </div>
-                            <div class="role-slot" data-slot="3b" id="slot-3b">
-                                <span class="slot-label">Kelas 3B</span>
-                            </div>
-            
-                        </div>
-                    </div>
-            
-                    <div class="org-section">
-                        <h3 class="mb-3">Daftar Guru & Staff (Drag dari sini)</h3>
-                        <div class="staff-pool" id="staffPool"
-                            style="min-height: 150px; background: #fff; padding: 15px; border: 2px dashed #ddd; border-radius: 8px;">
-                            <p>Memuat data...</p>
-                        </div>
-                    </div>
-            
-                </div>
-            </div>
             
             <div id="modalTambahGuru" class="gallery-modal">
                 <div class="modal-content-box">
                     <span class="close-modal" onclick="closeModal('modalTambahGuru')">&times;</span>
                     <h3>Tambah Guru / Staff</h3>
                     <form id="formTambahGuru">
+                    <input type="hidden" name="id" id="editIdGuru">
                         <div class="form-group">
                             <label>Nama Lengkap</label>
                             <input type="text" name="nama" class="form-control" required>
@@ -234,6 +130,7 @@
                     <span class="close-modal" onclick="closeModal('modalTambahGaleri')">&times;</span>
                     <h3>Upload Foto Galeri</h3>
                     <form id="formGaleriManual">
+                        <input type="hidden" name="id" id="editIdGaleri">
                         <div class="form-group">
                             <label>Judul / Keterangan Foto</label>
                             <input type="text" name="judul" class="form-control" placeholder="Contoh: Juara Lomba Lari..." required>
@@ -456,6 +353,7 @@
             <span class="close-modal" onclick="closeModal('modalPrestasi')">&times;</span>
             <h3>Tambah Prestasi</h3>
             <form id="formTambahPrestasi">
+                <input type="hidden" name="id" id="editIdPrestasi">
                 <div class="form-group">
                     <label>Nama Lomba</label>
                     <input type="text" name="judul" class="form-control" required placeholder="Contoh: Lomba Cerdas Cermat">
@@ -500,7 +398,7 @@
             <h3>Tulis Berita Baru</h3>
     
             <form id="formTambahBerita">
-    
+            <input type="hidden" name="id" id="editIdBerita">
                 <div class="form-group">
                     <label>Judul Berita</label>
                     <input type="text" name="judul" class="form-control" placeholder="Masukkan judul artikel..." required>
