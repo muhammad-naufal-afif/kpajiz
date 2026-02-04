@@ -44,7 +44,7 @@
 
     <main class="admin-main">
         <header class="admin-topbar">
-            <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
             <h1 id="pageTitle">Dashboard</h1>
             <div class="admin-profile">
                 <img src="images/admin-avatar.jpg" onerror="this.src='https://via.placeholder.com/40x40'">
@@ -83,32 +83,72 @@
                 </div>
             </div>
 
-            
-            
-            <div id="modalTambahGuru" class="gallery-modal">
-                <div class="modal-content-box">
-                    <span class="close-modal" onclick="closeModal('modalTambahGuru')">&times;</span>
-                    <h3>Tambah Guru / Staff</h3>
-                    <form id="formTambahGuru">
-                    <input type="hidden" name="id" id="editIdGuru">
-                        <div class="form-group">
-                            <label>Nama Lengkap</label>
-                            <input type="text" name="nama" class="form-control" required>
+            <div id="modul-guru" class="module-section" style="display: none;">
+                <div class="page-actions" style="margin-bottom: 20px; display: flex; justify-content: space-between;">
+                    <button class="action-btn blue" onclick="openModal('modalTambahGuru')">
+                        <i class="fas fa-plus"></i> Tambah Guru
+                    </button>
+                    <button class="action-btn green" onclick="saveGuruPositions()">
+                        <i class="fas fa-save"></i> Simpan Posisi
+                    </button>
+                </div>
+
+                <div class="jabatan-manager">
+                    <div class="org-section">
+                        <h3 class="text-center mb-3">Kepala Sekolah</h3>
+                        <div class="role-slot special-slot" data-slot="kepala_sekolah" id="slot-kepala_sekolah">
                         </div>
-                        <div class="form-group">
-                            <label>NIP / NUPTK</label>
-                            <input type="text" name="nip" class="form-control">
+                    </div>
+
+                    <div class="org-section">
+                        <h3 class="mb-3">Wali Kelas & Guru Mapel</h3>
+                        <div class="classroom-grid"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+
+                            <div class="role-slot" data-slot="1a" id="slot-1a"><span class="slot-label">Kelas 1A</span>
+                            </div>
+                            <div class="role-slot" data-slot="1b" id="slot-1b"><span class="slot-label">Kelas 1B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="2a" id="slot-2a"><span class="slot-label">Kelas 2A</span>
+                            </div>
+                            <div class="role-slot" data-slot="2b" id="slot-2b"><span class="slot-label">Kelas 2B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="3a" id="slot-3a"><span class="slot-label">Kelas 3A</span>
+                            </div>
+                            <div class="role-slot" data-slot="3b" id="slot-3b"><span class="slot-label">Kelas 3B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="4a" id="slot-4a"><span class="slot-label">Kelas 4A</span>
+                            </div>
+                            <div class="role-slot" data-slot="4b" id="slot-4b"><span class="slot-label">Kelas 4B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="5a" id="slot-5a"><span class="slot-label">Kelas 5A</span>
+                            </div>
+                            <div class="role-slot" data-slot="5b" id="slot-5b"><span class="slot-label">Kelas 5B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="6a" id="slot-6a"><span class="slot-label">Kelas 6A</span>
+                            </div>
+                            <div class="role-slot" data-slot="6b" id="slot-6b"><span class="slot-label">Kelas 6B</span>
+                            </div>
+
+                            <div class="role-slot" data-slot="agama" id="slot-agama"><span class="slot-label">Guru
+                                    Agama</span></div>
+                            <div class="role-slot" data-slot="penjas" id="slot-penjas"><span class="slot-label">Guru
+                                    Penjas</span></div>
                         </div>
-                        <div class="form-group">
-                            <label>Jabatan Default</label>
-                            <input type="text" name="posisi" class="form-control" placeholder="Contoh: Guru Penjas">
+                    </div>
+
+                    <div class="org-section">
+                        <h3 class="mb-3">Daftar Guru & Staff (Drag dari sini)</h3>
+                        <div class="staff-pool" id="staffPool"
+                            style="min-height: 150px; background: #fff; padding: 15px; border: 2px dashed #ddd; border-radius: 8px;">
+                            <p>Memuat data...</p>
                         </div>
-                        <div class="form-group">
-                            <label>Foto Profil</label>
-                            <input type="file" name="foto" class="form-control" accept="image/*" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Simpan Guru</button>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -118,37 +158,9 @@
                         <i class="fas fa-plus"></i> Tambah Foto Baru
                     </button>
                 </div>
-            
                 <h3 style="margin-bottom: 15px;">Daftar Foto Galeri</h3>
                 <div class="gallery-admin-grid" id="adminGalleryGrid">
                     <p style="color:#888;">Memuat data...</p>
-                </div>
-            </div>
-            
-            <div id="modalTambahGaleri" class="gallery-modal">
-                <div class="modal-content-box">
-                    <span class="close-modal" onclick="closeModal('modalTambahGaleri')">&times;</span>
-                    <h3>Upload Foto Galeri</h3>
-                    <form id="formGaleriManual">
-                        <input type="hidden" name="id" id="editIdGaleri">
-                        <div class="form-group">
-                            <label>Judul / Keterangan Foto</label>
-                            <input type="text" name="judul" class="form-control" placeholder="Contoh: Juara Lomba Lari..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Kategori</label>
-                            <select name="kategori" class="form-control">
-                                <option value="kegiatan">Kegiatan Sekolah</option>
-                                <option value="prestasi">Prestasi</option>
-                                <option value="fasilitas">Fasilitas</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>File Foto</label>
-                            <input type="file" name="file" class="form-control" accept="image/*" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Upload Foto</button>
-                    </form>
                 </div>
             </div>
 
@@ -175,75 +187,39 @@
                     </table>
                 </div>
             </div>
-                <div id="modul-berita" class="module-section" style="display: none;">
-                    <div class="page-actions"
-                        style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-                        <button class="action-btn blue" onclick="openModal('modalBerita')">
-                            <i class="fas fa-plus"></i> Tulis Berita Baru
-                        </button>
-                        <div class="search-wrapper">
-                            <input type="text" placeholder="Cari judul berita..."
-                                style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
-                        </div>
-                    </div>
-                
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th width="80">Cover</th>
-                                    <th>Judul Berita</th>
-                                    <th>Kategori</th>
-                                    <th>Penulis</th>
-                                    <th>Tanggal</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="images/news-1.jpg" onerror="this.src='https://via.placeholder.com/80x50'"
-                                            style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;">
-                                    </td>
-                                    <td>
-                                        <strong>Peringatan Hari Pendidikan Nasional</strong>
-                                        <div style="font-size: 11px; color: #888;">Dibaca: 245 kali</div>
-                                    </td>
-                                    <td><span class="badge blue">Kegiatan</span></td>
-                                    <td>Admin</td>
-                                    <td>15 Jan 2025</td>
-                                    <td><span class="badge green">Published</span></td>
-                                    <td>
-                                        <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon" title="Hapus"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="images/news-2.jpg" onerror="this.src='https://via.placeholder.com/80x50'"
-                                            style="width: 80px; height: 50px; object-fit: cover; border-radius: 6px;">
-                                    </td>
-                                    <td>
-                                        <strong>Juara 1 Lomba Cerdas Cermat</strong>
-                                        <div style="font-size: 11px; color: #888;">Dibaca: 328 kali</div>
-                                    </td>
-                                    <td><span class="badge purple">Prestasi</span></td>
-                                    <td>Admin</td>
-                                    <td>10 Jan 2025</td>
-                                    <td><span class="badge green">Published</span></td>
-                                    <td>
-                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+            <div id="modul-berita" class="module-section" style="display: none;">
+                <div class="page-actions"
+                    style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="action-btn blue" onclick="openModal('modalBerita')">
+                        <i class="fas fa-plus"></i> Tulis Berita Baru
+                    </button>
+                    <div class="search-wrapper">
+                        <input type="text" placeholder="Cari judul berita..."
+                            style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
                     </div>
                 </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="80">Cover</th>
+                                <th>Judul Berita</th>
+                                <th>Kategori</th>
+                                <th>Penulis</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="beritaTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div id="modul-pengaturan" class="module-section" style="display: none;">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-            
                     <div class="dashboard-card">
                         <div class="card-header">
                             <h3><i class="fas fa-school"></i> Identitas Sekolah</h3>
@@ -256,7 +232,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat Lengkap</label>
-                                    <textarea class="form-control" rows="3">Desa Bawang, Kec. Bawang, Kab. Banjarnegara</textarea>
+                                    <textarea class="form-control"
+                                        rows="3">Desa Bawang, Kec. Bawang, Kab. Banjarnegara</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Email Sekolah</label>
@@ -270,7 +247,6 @@
                             </form>
                         </div>
                     </div>
-            
                     <div style="display: flex; flex-direction: column; gap: 30px;">
                         <div class="dashboard-card">
                             <div class="card-header">
@@ -291,59 +267,72 @@
                                 </form>
                             </div>
                         </div>
-            
-                        <div class="dashboard-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-users-cog"></i> Manajemen Admin</h3>
-                            </div>
-                            <div class="card-content" style="padding: 20px;">
-                                <button class="action-btn purple"
-                                    style="width: 100%; justify-content: center; margin-bottom: 15px;">
-                                    <i class="fas fa-user-plus"></i> Tambah Admin Baru
-                                </button>
-                                <table class="data-table">
-                                    <tr>
-                                        <td><strong>admin</strong></td>
-                                        <td><span class="badge blue">Super Admin</span></td>
-                                        <td><i class="fas fa-trash" style="color: #ccc; cursor: not-allowed;"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>guru1</strong></td>
-                                        <td><span class="badge green">Editor</span></td>
-                                        <td><i class="fas fa-trash" style="color: red; cursor: pointer;"></i></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
                     </div>
-            
                 </div>
             </div>
 
         </div>
     </main>
 
-    <div id="modalGuru" class="gallery-modal">
+    <div id="modalTambahGuru" class="gallery-modal">
         <div class="modal-content-box">
-            <span class="close-modal" onclick="closeModal('modalGuru')">&times;</span>
-            <h3>Tambah Guru Baru</h3>
-            <form>
+            <span class="close-modal" onclick="closeModal('modalTambahGuru')">&times;</span>
+            <h3>Tambah Guru / Staff</h3>
+            <form id="formTambahGuru">
+                <input type="hidden" name="id">
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="nama" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>NIP / NUPTK</label>
+                    <input type="text" name="nip" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Jabatan Default</label>
+                    <input type="text" name="posisi" class="form-control" placeholder="Contoh: Guru Penjas"
+                        value="Guru">
                 </div>
                 <div class="form-group">
                     <label>Foto Profil</label>
                     <div class="upload-dropzone mini" id="guruPhotoDrop">
                         <div class="dz-content">
                             <i class="fas fa-camera"></i>
-                            <p>Drop Foto</p>
+                            <p>Klik / Drop Foto</p>
                         </div>
                         <img id="guruPreview" class="preview-img hidden">
-                        <input type="file" hidden>
+                        <input type="file" name="foto" id="guruPhotoInput" hidden accept="image/*">
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary w-100">Simpan</button>
+                <button type="submit" class="btn btn-primary w-100">Simpan Guru</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalTambahGaleri" class="gallery-modal">
+        <div class="modal-content-box">
+            <span class="close-modal" onclick="closeModal('modalTambahGaleri')">&times;</span>
+            <h3>Upload Foto Galeri</h3>
+            <form id="formGaleriManual">
+                <input type="hidden" name="id">
+                <div class="form-group">
+                    <label>Judul / Keterangan Foto</label>
+                    <input type="text" name="judul" class="form-control" placeholder="Contoh: Juara Lomba Lari..."
+                        required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select name="kategori" class="form-control">
+                        <option value="kegiatan">Kegiatan Sekolah</option>
+                        <option value="prestasi">Prestasi</option>
+                        <option value="fasilitas">Fasilitas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>File Foto</label>
+                    <input type="file" name="file" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Upload Foto</button>
             </form>
         </div>
     </div>
@@ -353,10 +342,11 @@
             <span class="close-modal" onclick="closeModal('modalPrestasi')">&times;</span>
             <h3>Tambah Prestasi</h3>
             <form id="formTambahPrestasi">
-                <input type="hidden" name="id" id="editIdPrestasi">
+                <input type="hidden" name="id">
                 <div class="form-group">
                     <label>Nama Lomba</label>
-                    <input type="text" name="judul" class="form-control" required placeholder="Contoh: Lomba Cerdas Cermat">
+                    <input type="text" name="judul" class="form-control" required
+                        placeholder="Contoh: Lomba Cerdas Cermat">
                 </div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
                     <div class="form-group">
@@ -396,14 +386,13 @@
         <div class="modal-content-box" style="width: 800px; max-width: 95%;">
             <span class="close-modal" onclick="closeModal('modalBerita')">&times;</span>
             <h3>Tulis Berita Baru</h3>
-    
             <form id="formTambahBerita">
-            <input type="hidden" name="id" id="editIdBerita">
+                <input type="hidden" name="id">
                 <div class="form-group">
                     <label>Judul Berita</label>
-                    <input type="text" name="judul" class="form-control" placeholder="Masukkan judul artikel..." required>
+                    <input type="text" name="judul" class="form-control" placeholder="Masukkan judul artikel..."
+                        required>
                 </div>
-    
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Kategori</label>
@@ -422,7 +411,6 @@
                         </select>
                     </div>
                 </div>
-    
                 <div class="form-group">
                     <label>Gambar Cover / Thumbnail</label>
                     <div class="upload-dropzone mini" id="beritaPhotoDrop">
@@ -431,21 +419,19 @@
                             <p>Seret Gambar Cover ke Sini</p>
                         </div>
                         <img id="beritaPreview" class="preview-img hidden">
-    
                         <input type="file" id="beritaPhotoInput" name="thumbnail" hidden accept="image/*">
                     </div>
                 </div>
-    
                 <div class="form-group">
                     <label>Isi Konten</label>
                     <textarea name="konten" class="form-control" rows="10" placeholder="Tulis isi berita di sini..."
                         required></textarea>
                 </div>
-    
                 <button type="submit" class="btn btn-primary w-100">Simpan & Terbitkan</button>
             </form>
         </div>
     </div>
+
     <script src="js/script.js"></script>
 </body>
 

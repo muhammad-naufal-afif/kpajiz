@@ -361,58 +361,226 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ======================================================
-    // 6. MANAJEMEN GURU
+    // 6. MANAJEMEN GURU & STAFF (NEW DRAG & DROP SYSTEM)
     // ======================================================
-    function loadGuruData() {
-        const pool = document.getElementById('staffPool');
-        if(!pool) return;
 
+    // Inisialisasi awal
+    if (document.getElementById('modul-guru')) {
+        loadGuruData();
+        setupDragSystem();
+    }
+
+    // A. LOAD DATA
+    function loadGuruData() {
         fetch(API_URL + 'guru/read.php')
         .then(res => res.json())
         .then(data => {
-            pool.innerHTML = '';
+            // 1. Reset Semua Slot & Container
             document.querySelectorAll('.role-slot').forEach(slot => {
-                const label = slot.querySelector('small, .slot-label');
-                slot.innerHTML = ''; 
-                if(label) slot.appendChild(label);
+                // Hapus kartu tapi sisakan label jabatan
+                const cards = slot.querySelectorAll('.guru-card');
+                cards.forEach(c => c.remove());
             });
+            document.getElementById('container-staff').innerHTML = '';
+            document.getElementById('staffPool').innerHTML = '';
 
-            if (data.length === 0) {
-                pool.innerHTML = '<p>Belum ada data guru.</p>';
-                return;
-            }
+            if (data.length === 0) return;
 
-            data.forEach(guru => {
-                const card = document.createElement('div');
-                card.className = 'guru-card draggable';
-                card.setAttribute('draggable', 'true');
-                card.id = 'guru-' + guru.id;
-                card.dataset.id = guru.id;
+            // 2. Loop Data & Render Kartu
+            data.forEach(pegawai => {
+                const card = createGuruCard(pegawai);
 
-                card.innerHTML = `
-                    <img src="${UPLOAD_URL}guru/${guru.foto}" loading="lazy" onerror="this.src='https://via.placeholder.com/40'">
-                    <div class="guru-info">
-                        <strong>${guru.nama}</strong>
-                        <small>${guru.posisi_default}</small>
-                    </div>
-                    <div style="position:absolute; top:5px; right:5px; display:flex; gap:5px;">
-                        <button onclick="editGuru(${guru.id}, '${guru.nama}', '${guru.nip || ''}', '${guru.posisi_default}')" 
-                                style="background:#f59e0b; color:white; border:none; width:20px; height:20px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:10px;">✏️</button>
-                        <button onclick="deleteGuru(${guru.id}, '${guru.nama}')" 
-                                style="background:#ef4444; color:white; border:none; width:20px; height:20px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:10px;">🗑️</button>
-                    </div>
-                `;
-
-                const targetSlotId = guru.lokasi_slot && guru.lokasi_slot !== 'pool' ? 'slot-' + guru.lokasi_slot : 'staffPool';
-                const targetContainer = document.getElementById(targetSlotId);
-                
-                if (targetContainer) targetContainer.appendChild(card);
-                else pool.appendChild(card);
-                
-                addDragEvents(card); 
+                // LOGIKA PENEMPATAN KARTU
+                if (pegawai.kategori === 'Staff') {
+                    // Masukkan ke area Staff
+                    document.getElementById('container-staff').appendChild(card);
+                } else {
+                    // Ini Guru, cari slot jabatannya
+                    // Cari elemen yang punya data-jabatan sama dengan jabatan guru ini
+                    const targetSlot = document.querySelector(`.role-slot[data-jabatan="${pegawai.jabatan}"]`);
+                    
+                    if (targetSlot) {
+                        targetSlot.appendChild(card);
+                    } else {
+                        // Kalau jabatannya tidak ketemu di slot (atau masih 'Pool'), masuk ke Pool
+                        document.getElementById('staffPool').appendChild(card);
+                    }
+                }
             });
         });
     }
+
+    // Helper: Buat HTML Kartu
+    function createGuruCard(data) {
+        const card = document.createElement('div');
+        card.className = 'guru-card draggable';
+        card.setAttribute('draggable', 'true'); // Wajib biar bisa digeser
+        card.dataset.id = data.id;
+        card.dataset.kategori = data.kategori; // Simpan kategori di dataset
+
+        card.innerHTML = `
+            <img src="${UPLOAD_URL}guru/${data.foto}" loading="lazy" onerror="this.src='https://via.placeholder.com/60?text=User'">
+            <div class="guru-info">
+                <strong>${data.nama}</strong>
+                <small>${data.nip || '-'}</small>
+                <div class="badge-role ${data.kategori === 'Staff' ? 'orange' : 'blue'}">${data.kategori}</div>
+            </div>
+            <div class="card-actions">
+                <button onclick="editGuru(${data.id}, '${data.nama}', '${data.nip}', '${data.kategori}')" title="Edit">✏️</button>
+                <button onclick="deleteGuru(${data.id}, '${data.nama}')" title="Hapus">🗑️</button>
+            </div>
+        `;
+        
+        // Pasang event drag manual ke kartu baru
+        addDragEvents(card);
+        return card;
+    }
+
+    // B. SIMPAN POSISI (UPDATE JABATAN VIA DRAG DROP)
+    window.saveStruktur = function() {
+        const updates = [];
+
+        // 1. Scan Guru di dalam Slot Jabatan
+        document.querySelectorAll('.role-slot').forEach(slot => {
+            const jabatanName = slot.getAttribute('data-jabatan');
+            const card = slot.querySelector('.guru-card');
+            
+            if (card) {
+                updates.push({
+                    id: card.dataset.id,
+                    jabatan: jabatanName // Update jabatan sesuai nama slot
+                });
+            }
+        });
+
+        // 2. Scan Guru yang dikembalikan ke Pool
+        const poolCards = document.getElementById('staffPool').querySelectorAll('.guru-card');
+        poolCards.forEach(card => {
+            updates.push({
+                id: card.dataset.id,
+                jabatan: 'Pool' // Reset jabatan jadi Pool
+            });
+        });
+
+        // Catatan: Staff tidak ikut diupdate jabatannya lewat drag drop struktur ini
+        // karena mereka punya area terpisah.
+
+        // 3. Kirim ke Server
+        fetch(API_URL + 'guru/update_posisi.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updates)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                showNotification('✅ Struktur Organisasi Berhasil Disimpan!', 'success');
+            } else {
+                showNotification('❌ Gagal menyimpan: ' + data.message, 'error');
+            }
+        })
+        .catch(err => console.error(err));
+    };
+
+    // C. SYSTEM DRAG & DROP
+    function setupDragSystem() {
+        const containers = document.querySelectorAll('.role-slot, #staffPool');
+
+        containers.forEach(container => {
+            container.addEventListener('dragover', e => {
+                e.preventDefault(); // Izinkan drop
+                container.classList.add('drag-hover');
+            });
+
+            container.addEventListener('dragleave', () => {
+                container.classList.remove('drag-hover');
+            });
+
+            container.addEventListener('drop', e => {
+                e.preventDefault();
+                container.classList.remove('drag-hover');
+                
+                const draggingCard = document.querySelector('.dragging');
+                if (!draggingCard) return;
+
+                // VALIDASI: Staff tidak boleh masuk ke slot Wali Kelas/Kepsek
+                const isStaff = draggingCard.dataset.kategori === 'Staff';
+                const isTargetPool = container.id === 'staffPool';
+
+                if (isStaff && !isTargetPool) {
+                    showNotification('⚠️ Staff tidak bisa menempati jabatan Guru!', 'error');
+                    return;
+                }
+
+                // Jika slot jabatan sudah ada isinya, pindahkan penghuni lama ke Pool
+                if (container.classList.contains('role-slot') && container.children.length > 1) {
+                    // children[0] adalah label span, children[1] adalah kartu
+                    const existingCard = container.querySelector('.guru-card');
+                    if (existingCard) {
+                        document.getElementById('staffPool').appendChild(existingCard);
+                    }
+                }
+
+                container.appendChild(draggingCard);
+            });
+        });
+    }
+
+    function addDragEvents(card) {
+        card.addEventListener('dragstart', () => card.classList.add('dragging'));
+        card.addEventListener('dragend', () => card.classList.remove('dragging'));
+    }
+
+    // D. FORM SUBMIT (CREATE / UPDATE DATA)
+    const formGuru = document.getElementById('formTambahGuru');
+    if (formGuru) {
+        formGuru.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(formGuru);
+            const id = formData.get('id');
+            const endpoint = id ? 'guru/update.php' : 'guru/create.php';
+
+            fetch(API_URL + endpoint, { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification('Data berhasil disimpan', 'success');
+                    closeModal('modalTambahGuru');
+                    formGuru.reset();
+                    // Reset hidden ID & Preview
+                    formGuru.querySelector('[name="id"]').value = "";
+                    document.getElementById('guruPreview').classList.add('hidden');
+                    loadGuruData();
+                } else {
+                    showNotification('Gagal: ' + data.message, 'error');
+                }
+            });
+        });
+    }
+
+    // E. EDIT FUNCTION
+    window.editGuru = function(id, nama, nip, kategori) {
+        openModal('modalTambahGuru');
+        const form = document.getElementById('formTambahGuru');
+        form.querySelector('[name="id"]').value = id;
+        form.querySelector('[name="nama"]').value = nama;
+        form.querySelector('[name="nip"]').value = nip;
+        form.querySelector('[name="kategori"]').value = kategori;
+    }
+
+    // F. DELETE FUNCTION
+    window.deleteGuru = function(id, nama) {
+        if(confirm(`Hapus pegawai ${nama}?`)) {
+            const formData = new FormData();
+            formData.append('id', id);
+            fetch(API_URL + 'guru/delete.php', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(() => {
+                showNotification('Pegawai dihapus', 'success');
+                loadGuruData();
+            });
+        }
+    };
 
     window.editGuru = function(id, nama, nip, posisi) {
         openModal('modalTambahGuru');
